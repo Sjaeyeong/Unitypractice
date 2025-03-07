@@ -7,3 +7,22 @@
 *.mp3 filter=lfs diff=lfs merge=lfs -text
 *.psd filter=lfs diff=lfs merge=lfs -text
 *.fbx filter=lfs diff=lfs merge=lfs -text
+# Unity Asset 디렉토리 내의 모든 파일을 LFS로 관리
+Assets/** filter=lfs diff=lfs merge=lfs -text
+
+# 유니티 스케너라이브러리 파일을 LFS로 관리
+*.dll filter=lfs diff=lfs merge=lfs -text
+
+# 유니티 텍스처 압축 파일을 LFS로 관리
+*.unityweb filter=lfs diff=lfs merge=lfs -text
+
+# 유니티 큰 용량의 패키지 파일을 LFS로 관리
+*.unitypackage filter=lfs diff=lfs merge=lfs -text
+
+# 유니티 압축된 에셋 번들 파일을 LFS로 관리
+*.assetbundle filter=lfs diff=lfs merge=lfs -text
+
+# 유니티 특정 타입의 데이터 파일을 LFS로 관리
+*.csv filter=lfs diff=lfs merge=lfs -text
+*.txt filter=lfs diff=lfs merge=lfs -text
+# 추가적인 파일 타입을 여기에 나열할 수 있습니다.

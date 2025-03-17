@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded){ 
+        if(Input.GetKeyDown(KeyCode.Space) && isGrounded){  // 스페이스바가 눌렸는지 && 캐릭터가 땅에 있는지
             PlayerRigidBody.AddForceY(jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
         }

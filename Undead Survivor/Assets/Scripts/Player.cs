@@ -1,4 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -6,30 +10,35 @@ public class Player : MonoBehaviour
     public float speed;
 
     Rigidbody2D rigid;
+    SpriteRenderer spriter;
+    Animator anim;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        inputVec.x = Input.GetAxisRaw("Horizontal");
-        inputVec.y = Input.GetAxisRaw("Vertical");
+        spriter = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
     {
-        Vector2 nextVec = inputVec.normalized * speed * Time.fixedDeltaTime; 
-        // // 1. 힘을 준다
-        // rigid.AddForce(inputVec);
-
-        // // 2. 속도 제어
-        // rigid.linearVelocity = inputVec;
-
-        // 3. 위치 이동
+        Vector2 nextVec = inputVec * speed * Time.fixedDeltaTime;
         rigid.MovePosition(rigid.position + nextVec);
+    }
+
+    void OnMove(InputValue value)
+    {
+        inputVec = value.Get<Vector2>();
+    }
+    
+    void LateUpdate()
+    {
+        anim.SetFloat("Speed", inputVec.magnitude);
+
+        if (inputVec.x != 0)
+        {
+            spriter.flipX = inputVec.x < 0;
+        }
     }
 }

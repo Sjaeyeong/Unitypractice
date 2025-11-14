@@ -17,22 +17,27 @@ public class Enemy : MonoBehaviour
         spriter = GetComponent<SpriteRenderer>();
     }
 
-  void FixedUpdate()
-  {
-    if (!isLive)
-        return;
+    void FixedUpdate()
+    {
+        if (!isLive)
+            return;
 
-    Vector2 dirVec = target.position - rigid.position; // 방향 벡터 = 타겟 위치 - 현재 위치
-    Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime; // 단위 벡터 * 속도 * 시간 (프레임 영향으로 결과가 달라지지 않기위해 FixedDeltaTime사용)
-    rigid.MovePosition(rigid.position + nextVec);
-    rigid.linearVelocity = Vector2.zero;
-  }
+        Vector2 dirVec = target.position - rigid.position; // 방향 벡터 = 타겟 위치 - 현재 위치
+        Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime; // 단위 벡터 * 속도 * 시간 (프레임 영향으로 결과가 달라지지 않기위해 FixedDeltaTime사용)
+        rigid.MovePosition(rigid.position + nextVec);
+        rigid.linearVelocity = Vector2.zero;
+    }
 
-  void LateUpdate()
-  {
-    if (!isLive)
-        return;
+    void LateUpdate()
+    {
+        if (!isLive)
+            return;
 
-    spriter.flipX = target.position.x < rigid.position.x;
-  }
+        spriter.flipX = target.position.x < rigid.position.x;
+    }
+
+    void OnEnable() // Enemy prefab이 맵에 생성될때 자동으로 타겟을 player로 초기화
+    {
+        target = GameManager.instance.player.GetComponent<Rigidbody2D>();
+    }
 }

@@ -20,8 +20,10 @@ public class Reposition : MonoBehaviour
       float diffy = Mathf.Abs(playerPos.y - myPos.y);
 
       Vector3 playerDir = GameManager.instance.player.inputVec;
-      float dirX = playerDir.x < 0 ? -1 : 1;
-      float dirY = playerDir.y < 0 ? -1 : 1;
+      // float dirX = playerDir.x < 0 ? -1 : 1;
+      // float dirY = playerDir.y < 0 ? -1 : 1;
+      float dirX = (playerPos.x < myPos.x) ? -1 : 1; // 타일이 플레이어보다 오른쪽에 있으면 (-1)
+      float dirY = (playerPos.y < myPos.y) ? -1 : 1; // 타일이 플레이어보다 위쪽에 있으면 (-1)
 
       switch (transform.tag)
         {
@@ -32,6 +34,11 @@ public class Reposition : MonoBehaviour
             }
             else if (diffx < diffy)
             {
+                transform.Translate(Vector3.up * dirY * 40);
+            }
+            else
+            {
+                transform.Translate(Vector3.right * dirX * 40);
                 transform.Translate(Vector3.up * dirY * 40);
             }
             break;

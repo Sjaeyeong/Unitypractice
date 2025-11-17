@@ -26,3 +26,13 @@ Assets/** filter=lfs diff=lfs merge=lfs -text
 *.csv filter=lfs diff=lfs merge=lfs -text
 *.txt filter=lfs diff=lfs merge=lfs -text
 # 추가적인 파일 타입을 여기에 나열할 수 있습니다.
+
+# .gitattributes 파일 내용 (종합)
+
+# Shader 파일 제외
+*.shader linguist-generated
+
+# Unity 바이너리 및 데이터 파일 제외
+*.unity linguist-generated
+*.prefab linguist-generated
+*.meta linguist-generated

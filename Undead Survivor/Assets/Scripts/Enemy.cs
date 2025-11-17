@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -11,20 +12,24 @@ public class Enemy : MonoBehaviour
     bool isLive;
 
     Rigidbody2D rigid;
+    Collider2D coll;
     Animator anim;
     SpriteRenderer spriter;
+    WaitForFixedUpdate wait;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        coll = GetComponent<Collider2D>();
         anim = GetComponent<Animator>();
         spriter = GetComponent<SpriteRenderer>();
+        wait = new WaitForFixedUpdate();
     }
 
     void FixedUpdate()
     {
-        if (!isLive)
+        if (!isLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
             return;
 
         Vector2 dirVec = target.position - rigid.position; // 방향 벡터 = 타겟 위치 - 현재 위치
@@ -45,6 +50,10 @@ public class Enemy : MonoBehaviour
     {
         target = GameManager.instance.player.GetComponent<Rigidbody2D>();
         isLive = true;
+        coll.enabled = true;
+        rigid.simulated = true;
+        spriter.sortingOrder = 2;
+        anim.SetBool("Dead", false);
         health = maxHealth;
     }
 
@@ -58,23 +67,40 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Bullet"))
+        if (!collision.CompareTag("Bullet") || !isLive)
             return;
 
         health -= collision.GetComponent<Bullet>().damage;
+        StartCoroutine(KnockBack()); // 코루틴 실행 시 꼭 StartCoroutine 써야함
+
 
         if (health > 0)
         {
             // Live or Hit Action
+            anim.SetTrigger("Hit");
 
         }
         else
         {
-            // Die Action
-            Dead();
+            isLive = false;
+            coll.enabled = false; // collider 비활성화
+            rigid.simulated = false; // rigidbody 비활성화
+            spriter.sortingOrder = 1; // 죽었을 때 뒤로 나오게 설정
+            anim.SetBool("Dead", true);
+            GameManager.instance.kill++;
+            GameManager.instance.GetExp();
+            
         }
 
     }
+
+    IEnumerator KnockBack() // 코루틴만의 반환형 인터페이스
+    {
+        yield return wait; // wait 만큼 딜레이 (변수를 선언해서 적용하면 최적화가능)
+        Vector3 playerPos = GameManager.instance.player.transform.position;
+        Vector3 dirVec = transform.position - playerPos;
+        rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse); // 순간적인 힘(즉발) ForceMode2D.Impulse
+    }  
 
     void Dead()
     {

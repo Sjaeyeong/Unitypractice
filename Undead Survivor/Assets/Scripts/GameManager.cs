@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public float gameTime;
     public float maxGameTime = 2 * 10f; // 게임 최대 시간
     [Header("# Player Info")]
+    public int health;
+    public int maxHealth = 100;
     public int level;
     public int kill;
     public int exp;
@@ -15,12 +17,17 @@ public class GameManager : MonoBehaviour
     public PoolManager pool;
     public Player player;
 
-  void Awake()
-  {
-    instance = this;
-  }
+    void Awake()
+    {
+        instance = this;
+    }
 
-      void Update()
+    void Start()
+    {
+        health = maxHealth;
+    }
+
+    void Update()
     {
         gameTime += Time.deltaTime;
 

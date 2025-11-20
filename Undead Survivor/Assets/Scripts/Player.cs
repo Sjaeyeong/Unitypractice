@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public Vector2 inputVec;
     public float speed;
     public Scanner scanner;
+    public Hand[] hands;
 
     Rigidbody2D rigid;
     SpriteRenderer spriter;
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
         spriter = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         scanner = GetComponent<Scanner>();
+        hands = GetComponentsInChildren<Hand>(true); // 인자값에 true를 넣으면 비활성화 시킨 오브젝트로 적용됨
     }
 
     void FixedUpdate()

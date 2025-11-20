@@ -14,6 +14,9 @@ public class Spawner : MonoBehaviour
     }
     void Update()
     {
+        if (!GameManager.instance.isLive)
+            return;
+            
         timer += Time.deltaTime;
         level = Mathf.Min(Mathf.FloorToInt(GameManager.instance.gameTime / 10f), spawnData.Length - 1);
 
@@ -27,16 +30,16 @@ public class Spawner : MonoBehaviour
     void Spawn()
     {
         GameObject enemy = GameManager.instance.pool.Get(0);
-        enemy.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position; // ÀÚ±âÀÚ½ÅÀ» »©±â À§ÇØ 0ÀÌ ¾Æ´Ñ 1ºÎÅÍ
+        enemy.transform.position = spawnPoint[Random.Range(1, spawnPoint.Length)].position; // ï¿½Ú±ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ ï¿½Æ´ï¿½ 1ï¿½ï¿½ï¿½ï¿½
         enemy.GetComponent<Enemy>().Init(spawnData[level]);
     }
 }
 
-[System.Serializable] // Á÷·ÄÈ­
+[System.Serializable] // ï¿½ï¿½ï¿½ï¿½È­
 public class SpawnData
 {
     public float spawnTime;
-    public int spriteType; // ¸ó½ºÅÍ Á¾·ù
+    public int spriteType; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public int health;
     public float speed;
 }

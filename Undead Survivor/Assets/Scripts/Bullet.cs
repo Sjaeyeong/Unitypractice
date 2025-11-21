@@ -14,10 +14,10 @@ public class Bullet : MonoBehaviour
 
     public void Init(float damage, int per, Vector3 dir)
     {
-        this.damage = damage; // this.damage는 클래스의 damage, 오른쪽 damage는 매개변수의 damage
+        this.damage = damage;
         this.per = per;
 
-        if (per > -1)
+        if (per >= 0)
         {
             rigid.linearVelocity = dir * 15f;
         }
@@ -25,16 +25,24 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Enemy") || per == -1)
+        if (!collision.CompareTag("Enemy") || per == -100)
             return;
 
         per--;
 
-        if (per == -1)
+        if (per < 0)
         {
             rigid.linearVelocity = Vector2.zero;
-            gameObject.SetActive(false); // object가 pool으로 관리되기 때문에 Destroy 사용금지
+            gameObject.SetActive(false);
 
         }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Area") || per == -100)
+            return;
+
+        gameObject.SetActive(false);
     }
 }

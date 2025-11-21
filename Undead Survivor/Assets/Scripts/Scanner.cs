@@ -10,15 +10,15 @@ public class Scanner : MonoBehaviour
     void FixedUpdate()
     {
         targets = Physics2D.CircleCastAll(transform.position, scanRange, Vector2.zero, 0, targetLayer);
-        // ¿øÇüÀÇ Ä³½ºÆ®¸¦ ½î°í ¸ğµç °á°ú¸¦ ¹İÈ¯ÇÏ´Â ÇÔ¼ö
-            // 1. Ä³½ºÆÃ ½ÃÀÛ À§Ä¡ 2. ¿øÀÇ ¹İÁö¸§ 3. Ä³½ºÆÃ ¹æÇâ 4. Ä³½ºÆÃ ±æÀÌ 5. ´ë»ó ·¹ÀÌ¾î
+        // ì›í˜•ì˜ ìºìŠ¤íŠ¸ë¥¼ ì˜ê³  ëª¨ë“  ê²°ê³¼ë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
+            // 1. ìºìŠ¤íŒ… ì‹œì‘ ìœ„ì¹˜ 2. ì›ì˜ ë°˜ì§€ë¦„ 3. ìºìŠ¤íŒ… ë°©í–¥ 4. ìºìŠ¤íŒ… ê¸¸ì´ 5. ëŒ€ìƒ ë ˆì´ì–´
         nearestTarget = GetNearest();
     }
 
     Transform GetNearest()
     {
         Transform result = null;
-        float diff = 100; // ÀÓ½ÃÀÇ Å« °Å¸®
+        float diff = 100; // ì„ì‹œì˜ í° ê±°ë¦¬
 
         foreach (RaycastHit2D target in targets)
         {

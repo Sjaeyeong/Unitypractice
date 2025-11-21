@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public int exp;
     public float speed;
     public float health;
     public float maxHealth;
@@ -34,8 +35,8 @@ public class Enemy : MonoBehaviour
         if (!isLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
             return;
 
-        Vector2 dirVec = target.position - rigid.position; // ¹æÇâ º¤ÅÍ = Å¸°Ù À§Ä¡ - ÇöÀç À§Ä¡
-        Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime; // ´ÜÀ§ º¤ÅÍ * ¼Óµµ * ½Ã°£ (ÇÁ·¹ÀÓ ¿µÇâÀ¸·Î °á°ú°¡ ´Ş¶óÁöÁö ¾Ê±âÀ§ÇØ FixedDeltaTime»ç¿ë)
+        Vector2 dirVec = target.position - rigid.position; // ë°©í–¥ ë²¡í„° = íƒ€ê²Ÿ ìœ„ì¹˜ - í˜„ì¬ ìœ„ì¹˜
+        Vector2 nextVec = dirVec.normalized * speed * Time.fixedDeltaTime; // ë‹¨ìœ„ ë²¡í„° * ì†ë„ * ì‹œê°„ (í”„ë ˆì„ ì˜í–¥ìœ¼ë¡œ ê²°ê³¼ê°€ ë‹¬ë¼ì§€ì§€ ì•Šê¸°ìœ„í•´ FixedDeltaTimeì‚¬ìš©)
         rigid.MovePosition(rigid.position + nextVec);
         rigid.linearVelocity = Vector2.zero;
     }
@@ -50,7 +51,7 @@ public class Enemy : MonoBehaviour
         spriter.flipX = target.position.x < rigid.position.x;
     }
 
-    void OnEnable() // Enemy prefabÀÌ ¸Ê¿¡ »ı¼ºµÉ¶§ ÀÚµ¿À¸·Î Å¸°ÙÀ» player·Î ÃÊ±âÈ­
+    void OnEnable() // Enemy prefabì´ ë§µì— ìƒì„±ë ë•Œ ìë™ìœ¼ë¡œ íƒ€ê²Ÿì„ playerë¡œ ì´ˆê¸°í™”
     {
         target = GameManager.instance.player.GetComponent<Rigidbody2D>();
         isLive = true;
@@ -67,6 +68,9 @@ public class Enemy : MonoBehaviour
         speed = data.speed;
         maxHealth = data.health;
         health = data.health;
+        exp = data.exp;
+
+        transform.localScale = Vector3.one * data.scaleEnemy;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -75,7 +79,7 @@ public class Enemy : MonoBehaviour
             return;
 
         health -= collision.GetComponent<Bullet>().damage;
-        StartCoroutine(KnockBack()); // ÄÚ·çÆ¾ ½ÇÇà ½Ã ²À StartCoroutine ½á¾ßÇÔ
+        StartCoroutine(KnockBack()); // ì½”ë£¨í‹´ ì‹¤í–‰ ì‹œ ê¼­ StartCoroutine ì¨ì•¼í•¨
 
 
         if (health > 0)
@@ -88,12 +92,12 @@ public class Enemy : MonoBehaviour
         else
         {
             isLive = false;
-            coll.enabled = false; // collider ºñÈ°¼ºÈ­
-            rigid.simulated = false; // rigidbody ºñÈ°¼ºÈ­
-            spriter.sortingOrder = 1; // Á×¾úÀ» ¶§ µÚ·Î ³ª¿À°Ô ¼³Á¤
+            coll.enabled = false; // collider ë¹„í™œì„±í™”
+            rigid.simulated = false; // rigidbody ë¹„í™œì„±í™”
+            spriter.sortingOrder = 1; // ì£½ì—ˆì„ ë•Œ ë’¤ë¡œ ë‚˜ì˜¤ê²Œ ì„¤ì •
             anim.SetBool("Dead", true);
             GameManager.instance.kill++;
-            GameManager.instance.GetExp();
+            GameManager.instance.GetExp(exp);
 
             if (GameManager.instance.isLive)
             {
@@ -103,15 +107,15 @@ public class Enemy : MonoBehaviour
 
     }
 
-    IEnumerator KnockBack() // ÄÚ·çÆ¾¸¸ÀÇ ¹İÈ¯Çü ÀÎÅÍÆäÀÌ½º
+    IEnumerator KnockBack() // ì½”ë£¨í‹´ë§Œì˜ ë°˜í™˜í˜• ì¸í„°í˜ì´ìŠ¤
     {
-        yield return wait; // wait ¸¸Å­ µô·¹ÀÌ (º¯¼ö¸¦ ¼±¾ğÇØ¼­ Àû¿ëÇÏ¸é ÃÖÀûÈ­°¡´É)
+        yield return wait; // wait ë§Œí¼ ë”œë ˆì´ (ë³€ìˆ˜ë¥¼ ì„ ì–¸í•´ì„œ ì ìš©í•˜ë©´ ìµœì í™”ê°€ëŠ¥)
         Vector3 playerPos = GameManager.instance.player.transform.position;
         Vector3 dirVec = transform.position - playerPos;
-        rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse); // ¼ø°£ÀûÀÎ Èû(Áï¹ß) ForceMode2D.Impulse
+        rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse); // ìˆœê°„ì ì¸ í˜(ì¦‰ë°œ) ForceMode2D.Impulse
     }  
 
-    void Dead()
+    public void Dead()
     {
         gameObject.SetActive(false);
     }

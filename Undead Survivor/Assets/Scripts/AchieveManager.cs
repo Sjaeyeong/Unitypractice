@@ -7,10 +7,6 @@ public class AchieveManager : MonoBehaviour
     public GameObject[] lockCharacter;
     public GameObject[] unlockCharacter;
     public GameObject uiNotice;
-    // public RectTransform noticeRect;
-    // public Vector3 noticeStart = new Vector3(100, -15, 0);
-    // public Vector3 noticeEnd = new Vector3(-5, -15, 0);
-    // public float slideDuration = 0.5f;
 
     
     enum Achieve { UnlockPotato, UnlockBean }
@@ -97,27 +93,8 @@ public class AchieveManager : MonoBehaviour
     IEnumerator NoticeRoutine()
     {
         uiNotice.SetActive(true);
-    //     noticeRect.anchoredPosition = noticeStart;
 
-    //     float elapsed = 0f;
-
-    // // 2. 슬라이드 인 애니메이션 (화면 안으로 진입)
-    // // 이 루프가 SetActive(true) 직후에 실행되어 애니메이션을 시작합니다.
-    //     while (elapsed < slideDuration)
-    //     {
-    //         elapsed += Time.unscaledDeltaTime; 
-    //         float t = elapsed / slideDuration; // 0.0에서 1.0으로 진행
-
-    //         // Lerp를 사용하여 시작 위치에서 목표 위치로 부드럽게 이동
-    //         noticeRect.anchoredPosition = Vector3.Lerp(
-    //             noticeStart, 
-    //             noticeEnd, 
-    //             t
-    //         );
-    //         yield return null; // 다음 프레임까지 대기
-    //     }
-    //     // 애니메이션이 정확히 목표 위치에서 끝나도록 보장
-    //     noticeRect.anchoredPosition = noticeEnd;
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.LevelUp);
         
         yield return wait;
 

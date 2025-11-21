@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public int id; // ¹«±âÀÇ ¾ÆÀÌµð
-    public int prefabId; // ¹«±âÀÇ ÇÁ¸®ÆÕ ¾ÆÀÌµð
+    public int id; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+    public int prefabId; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
     public float damage;
     public int count;
     public float speed;
@@ -24,7 +24,7 @@ public class Weapon : MonoBehaviour
         switch (id)
         {
             case 0:
-                transform.Rotate(Vector3.back * speed * Time.deltaTime); // forward°¡ ¾Æ´Ñ backÀÎ ÀÌÀ¯´Â ½ºÇÇµå°¡ Áö±Ý -·Î ¼³Á¤µÇ¾îÀÖ±â ¶§¹®
+                transform.Rotate(Vector3.back * speed * Time.deltaTime); // forwardï¿½ï¿½ ï¿½Æ´ï¿½ backï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Çµå°¡ ï¿½ï¿½ï¿½ï¿½ -ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½
 
                 break;
             // case 1:
@@ -66,7 +66,7 @@ public class Weapon : MonoBehaviour
         // Basic Set
         name = "Weapon " + data.itemId;
         transform.parent = player.transform;
-        transform.localPosition = Vector3.zero; // player¾È¿¡¼­ À§Ä¡¸¦ ¸ÂÃç¾ß ÇÏ±â ¶§¹®¿¡ local»ç¿ë
+        transform.localPosition = Vector3.zero; // playerï¿½È¿ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ localï¿½ï¿½ï¿½
 
         // Property Set
         id = data.itemId;
@@ -104,11 +104,12 @@ public class Weapon : MonoBehaviour
         hand.spriter.sprite = data.hand;
         hand.gameObject.SetActive(true);
 
-        player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver); // Æ¯Á¤ ÇÔ¼ö È£ÃâÀ» ¸ðµç ÀÚ½Ä¿¡°Ô ¹æ¼ÛÇÏ´Â ÇÔ¼ö
+        player.BroadcastMessage("ApplyGear", SendMessageOptions.DontRequireReceiver); // Æ¯ï¿½ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ú½Ä¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     }
 
     void Batch()
     {
+
         for (int i = 0; i < count; i++)
         {
             Transform bullet;
@@ -125,12 +126,12 @@ public class Weapon : MonoBehaviour
 
 
             bullet.localPosition = Vector3.zero;
-            bullet.localRotation = Quaternion.identity; // È¸ÀüÀÇ ÃÊ±â°ª
+            bullet.localRotation = Quaternion.identity; // È¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±â°ª
 
             Vector3 rotVec = Vector3.forward * 360 * i / count;
             bullet.Rotate(rotVec);
             bullet.Translate(bullet.up * 1.5f, Space.World);
-            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero); // ±ÙÁ¢¹«±â¶ó °üÅëÀÌ ÀÇ¹Ì¾ø±â ¶§¹®¿¡ -1·Î ¼³Á¤ÇÏ¿© ¹«ÇÑÀ¸·Î ¼³Á¤ÇÔ / -1 is Infinity Per.
+            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¹Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ / -1 is Infinity Per.
         }
     }
 
@@ -145,7 +146,9 @@ public class Weapon : MonoBehaviour
         
         Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
         bullet.position = transform.position;
-        bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir); // ¸ñÇ¥·Î º¤ÅÍ¸¦ ³Ö¾î È¸ÀüÀ» ½ÃÄÑÁÜ
+        bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir); // ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ö¾ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         bullet.GetComponent<Bullet>().Init(damage, count, dir);
+
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Range);
     }
 }

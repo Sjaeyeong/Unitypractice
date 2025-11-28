@@ -8,13 +8,20 @@ public class MonkeyCS : MonoBehaviour
     public int prefabId;
     public float damage;
     public float speed;
+    public bool isLive;
 
     float timer;
-    Animator anim;
+    public Animator weaponAnim;
 
     void Awake()
     {
-        anim = GetComponent<Animator>();
+        if (!weaponAnim)
+            weaponAnim = GetComponentInChildren<Animator>(true);
+    }
+
+    void Start()
+    {
+        isLive = true;
     }
 
     void Update()
@@ -22,9 +29,11 @@ public class MonkeyCS : MonoBehaviour
         if (!GameManager.instance.isLive)
             return;
 
+        float delay = 1.0f / speed;
+
         timer += Time.deltaTime;
 
-        if (timer > speed)
+        if (timer > delay)
         {
             timer = 0f;
             Fire();
@@ -49,7 +58,6 @@ public class MonkeyCS : MonoBehaviour
         {
             case 0: // [기본] 포물선, 타겟 위치로 (관통X)
             case 2: // [삽 원숭이] 직선, 회전 필요
-                
                 // 타겟 방향 벡터 계산
                 Vector3 dir = targetPos - transform.position;
                 
@@ -80,7 +88,8 @@ public class MonkeyCS : MonoBehaviour
                 break;
         }
         // 4. 애니메이션 재생
-        if (anim != null) anim.SetTrigger("Attack");
+        if (weaponAnim != null) 
+            weaponAnim.SetTrigger("Attack");
 
         GameObject bulletObj = PoolManager.instance.Get(prefabId);
         if (bulletObj != null)

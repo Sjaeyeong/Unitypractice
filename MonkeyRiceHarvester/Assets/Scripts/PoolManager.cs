@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
-    public static PoolManager instance;
-
     [Header("# Prefabs")]
     public GameObject[] prefabs;
     
@@ -12,8 +10,6 @@ public class PoolManager : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
-
         pools = new List<GameObject>[prefabs.Length];
 
         for (int i=0; i<pools.Length; i++)

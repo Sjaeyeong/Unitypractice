@@ -1,23 +1,41 @@
+using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
 public class SpawnInputHandler : MonoBehaviour
 {
+    public Transform[] spawnPoint;
+    public SpawnData[] spawnData;
+    private int currentBag = 0;
+    private const int TOTAL_BAGTYPES = 3;
+
+    void Awake()
+    {
+        spawnPoint = GetComponentsInChildren<Transform>();
+    }
+
     void Update()
     {
-        // 마우스 왼쪽 버튼 클릭 또는 터치 감지
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.C) || Input.GetMouseButtonDown(0))
         {
-            // GameManager가 준비되었고, 빨강 포대가 죽어있다면 수동 소환 시도
-            if (!GameManager.instance)
-            {
-                int numBags = GameManager.instance.bags.Length; 
-                
-                for (int i = 0; i < numBags; i++)
-                {
-                    // GameManager.ManualSpawn(i)는 포대 i가 '해금되었고' '현재 죽어있는' 경우에만 소환을 실행합니다.
-                    GameManager.instance.ManualSpawn(i);
-                }
-            }
+            Spawn();
         }
     }
+
+    void Spawn()
+    {
+        GameObject bag = GameManager.instance.pool.Get(0);
+        bag.transform.position = spawnPoint[currentBag].position;
+    }
+
+}
+
+[System.Serializable]
+public class SpawnData
+{
+    public int spriteType;
+    public int level;
+    public float hp;
+    public float exp;
+    public int rice;
+    public int banana;
 }

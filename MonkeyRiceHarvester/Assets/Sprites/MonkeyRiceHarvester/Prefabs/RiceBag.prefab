@@ -102,15 +102,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b984d82d541529a499f02001268c2721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
+  hp: 0
+  maxHp: 0
   level: 0
-  maxHP: 0
-  currentHP: 0
-  sprites:
-  - {fileID: -8200787528238950913, guid: 636f140c37ab807489caba605c628e2c, type: 3}
-  - {fileID: -5000274437894025801, guid: 636f140c37ab807489caba605c628e2c, type: 3}
-  - {fileID: 7019741089726516460, guid: 636f140c37ab807489caba605c628e2c, type: 3}
-  - {fileID: 3036340822236450529, guid: 35e255d08763ccc4284736355c8926ce, type: 3}
+  animCon:
+  - {fileID: 9100000, guid: 50816779200f68d4b8627980cdb58643, type: 2}
+  - {fileID: 22100000, guid: 69b1c232f6a71524c86b7c7707071286, type: 2}
+  - {fileID: 22100000, guid: 347bb3bea64f4fe4586d604a4fba3d27, type: 2}
+  - {fileID: 22100000, guid: b215e664b4dfa0146a728af5fe6c6750, type: 2}
 --- !u!95 &858892752879424845
 Animator:
   serializedVersion: 7
@@ -121,7 +120,7 @@ Animator:
   m_GameObject: {fileID: 8263005986752085419}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a53f2a4690367044283310e26fd8a239, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

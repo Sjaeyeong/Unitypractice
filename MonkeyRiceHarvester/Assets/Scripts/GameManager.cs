@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("# Info")]
+    public int activeTargetCount = 1;
+
     public static GameManager instance;
     public PoolManager pool;
     public MonkeyCS monkey;
@@ -12,6 +15,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         Application.targetFrameRate = 60;
+
     }
 
 }

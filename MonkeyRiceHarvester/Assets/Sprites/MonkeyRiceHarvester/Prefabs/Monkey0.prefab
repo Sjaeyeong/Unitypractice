@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6034756184981612821}
   - component: {fileID: 6627345287191621740}
   - component: {fileID: 4858880994067320060}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Monkey0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,8 @@ GameObject:
   - component: {fileID: 6190974538432353447}
   - component: {fileID: 5316007568074903148}
   - component: {fileID: 4402820282987791376}
-  m_Layer: 0
+  - component: {fileID: 1359846000440161891}
+  m_Layer: 6
   m_Name: Weapon0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +223,7 @@ Animator:
   m_GameObject: {fileID: 6509505585774463713}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 26571ef772b26874a9bb1fed06e2dd7c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0bdb12c5592e74f43b414926369b359e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -234,3 +235,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1359846000440161891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6509505585774463713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06d89220c4a571542baf81ad5cbc3846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  prefabId: 3
+  damage: 20
+  count: 1
+  speed: 1.2
+  crit: 5
+  critDmg: 1
+  per: 0
+  targets: []
+  currentTargetIndex: 0

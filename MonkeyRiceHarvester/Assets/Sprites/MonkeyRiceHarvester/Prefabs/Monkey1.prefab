@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 6190974538432353447}
   - component: {fileID: 5316007568074903148}
   - component: {fileID: 4402820282987791376}
+  - component: {fileID: 1086547225392719495}
   m_Layer: 0
   m_Name: Weapon1
   m_TagString: Untagged
@@ -222,7 +223,7 @@ Animator:
   m_GameObject: {fileID: 6509505585774463713}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: d6afafbccc5d5f643bafff068363e7fb, type: 2}
+  m_Controller: {fileID: 22100000, guid: 4ed2123b5f6b21b40b00e928fd1abc7e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -234,3 +235,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1086547225392719495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6509505585774463713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06d89220c4a571542baf81ad5cbc3846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 1
+  prefabId: 4
+  damage: 10
+  count: 1
+  speed: 1.5
+  crit: 15
+  critDmg: 1.5
+  per: 1
+  targets: []
+  currentTargetIndex: 0

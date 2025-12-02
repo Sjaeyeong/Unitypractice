@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -16,10 +17,12 @@ public class Weapon : MonoBehaviour
     public int currentTargetIndex = 0;
 
     float timer;
+    public bool isAttacking = false;
     MonkeyCS monkey;
 
     void Awake()
     {
+        monkey = GetComponentInParent<MonkeyCS>();
         FindSpawnPoint();
     }
 
@@ -74,15 +77,20 @@ public class Weapon : MonoBehaviour
         switch (id)
         {
             case 0:
-                speed = 0.5f;
+                speed = 1.2f;
                 break;
             case 1:
-
+                speed = 1.5f;
                 break;
             default:
-
+                speed = 0.5f;
                 break;
         }
+    }
+
+    public void SetAttackState(bool attack)
+    {
+        isAttacking = attack;
     }
 
     void FindSpawnPoint()
@@ -92,7 +100,28 @@ public class Weapon : MonoBehaviour
 
     void Fire()
     {
-        if ()
+        if (!isAttacking)
+            return;
+        if(id != 2)
+        {
+            Vector3 dir = transform.right;
+
+            Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
+            bullet.position = transform.position;
+            bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
+            bullet.GetComponent<Bullet>().Init(damage, count, dir);
+        }
+        else
+        {
+            Vector3 targetPos = monkey.target.position;
+            Vector3 dir = targetPos - transform.position;
+            dir = dir.normalized;
+
+            Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
+            bullet.position = transform.position;
+            bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
+            bullet.GetComponent<Bullet>().Init(damage, count, dir);
+        }
     }
 
 }

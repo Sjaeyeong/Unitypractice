@@ -7,26 +7,32 @@ public class RiceBag : MonoBehaviour
     [Header("# Bag Info")]
     public float hp;
     public float maxHp;
-    public int level;
+    public int level = 1;
+    public bool isLive;
 
     public RuntimeAnimatorController[] animCon;
 
     Rigidbody2D rigid;
     Animator anim;
     SpriteRenderer spriter;
+    Collider2D coll;
 
-    bool isLive;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriter = GetComponent<SpriteRenderer>();
+        coll = GetComponent<Collider2D>();
     }
 
     void OnEnable() // 다시 소환될때 적용될 코드
     {
         isLive = true;
+        hp = maxHp;
+        coll.enabled = true;
+        rigid.simulated = true;
+        anim.SetBool("Destroy", false);
         hp = maxHp;
 
     }
@@ -58,11 +64,20 @@ public class RiceBag : MonoBehaviour
 
         if (hp > 0)
         {
-            
+            anim.SetTrigger("Hit");
+
         }
 
         else
         {
+            isLive = false;
+            coll.enabled = false;
+            rigid.simulated = false;
+
+            level++;
+            
+            anim.SetBool("Destroy", true);
+            Destroy();
             
         }
 

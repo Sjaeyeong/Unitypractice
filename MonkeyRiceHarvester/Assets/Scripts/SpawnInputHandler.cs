@@ -40,6 +40,11 @@ public class SpawnInputHandler : MonoBehaviour
             bag.GetComponent<RiceBag>().Init(spawnData[i]);
             
             spawnedBags[i] = bag;
+
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.activeRiceBag[i] = bag.GetComponent<RiceBag>();
+            }
         }
         // GameObject redBag = GameManager.instance.pool.Get(0);
         // GameObject blueBag = GameManager.instance.pool.Get(1);
@@ -62,6 +67,7 @@ public class SpawnData
     public int spriteType;
     public int level;
     public float hp;
+    public float maxHP;
     public float exp;
     public int rice;
     public int banana;

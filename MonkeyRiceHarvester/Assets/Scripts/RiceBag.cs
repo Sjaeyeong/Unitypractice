@@ -1,14 +1,19 @@
 using NUnit.Framework;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RiceBag : MonoBehaviour
 {
     [Header("# Bag Info")]
+    public float exp;
     public float hp;
     public float maxHp;
-    public int level = 1;
+    public int level;
     public bool isLive;
+    public int rice;
+    public int banana;
 
     public RuntimeAnimatorController[] animCon;
 
@@ -16,6 +21,8 @@ public class RiceBag : MonoBehaviour
     Animator anim;
     SpriteRenderer spriter;
     Collider2D coll;
+
+    public SpawnData[] spawnData;
 
 
     void Awake()
@@ -29,29 +36,31 @@ public class RiceBag : MonoBehaviour
     void OnEnable() // 다시 소환될때 적용될 코드
     {
         isLive = true;
-        hp = maxHp;
-        coll.enabled = true;
-        rigid.simulated = true;
-        anim.SetBool("Destroy", false);
-        hp = maxHp;
-
-    }
-
-    public void Init(SpawnData data)
-    {
-        if (data.level % 10 == 0)
+        level++;
+        if (level % 10 == 0)
         {
             anim.runtimeAnimatorController = animCon[1];
-            maxHp = data.hp * 1.2f;
+            maxHp = hp * 1.2f;
         }
         else
         {
             anim.runtimeAnimatorController = animCon[0];
-            maxHp = data.hp;
+            maxHp = hp;
             
         }
+        hp = maxHp;
+        coll.enabled = true;
+        rigid.simulated = true;
+        anim.SetBool("Destroy", false);
+    }
 
+    public void Init(SpawnData data)
+    {
+        exp = data.exp;
         hp = data.hp;
+        maxHp = data.maxHP;
+        rice = data.rice;
+        banana = data.banana;
         
     }
 
@@ -74,10 +83,11 @@ public class RiceBag : MonoBehaviour
             coll.enabled = false;
             rigid.simulated = false;
 
-            level++;
+            // level++;
+            GameManager.instance.kill++;
+            GameManager.instance.GetExp(exp);
             
             anim.SetBool("Destroy", true);
-            Destroy();
             
         }
 

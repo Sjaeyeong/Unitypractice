@@ -38,6 +38,9 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
+        if (!collision.CompareTag("Area"))
+            return;
         
+        gameObject.SetActive(false);
     }
 }

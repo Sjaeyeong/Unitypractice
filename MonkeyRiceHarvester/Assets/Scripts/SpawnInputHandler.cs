@@ -15,6 +15,11 @@ public class SpawnInputHandler : MonoBehaviour
         spawnPoint = GetComponentsInChildren<Transform>();
     }
 
+    void Start()
+    {
+        Spawn();
+    }
+
     void Update()
     {
 

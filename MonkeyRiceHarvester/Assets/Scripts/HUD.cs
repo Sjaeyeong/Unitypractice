@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+// using TMPro;
 
 public class HUD : MonoBehaviour
 {
@@ -8,12 +9,14 @@ public class HUD : MonoBehaviour
     public InfoType type;
 
     Text myText;
+    // TextMeshProUGUI myText;
     Slider mySlider;
 
 
     void Awake()
     {
         myText = GetComponent<Text>();
+        // myText = GetComponent<TextMeshProUGUI>();
         mySlider = GetComponent<Slider>();
     }
 

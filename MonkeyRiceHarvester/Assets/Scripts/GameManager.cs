@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
 
     public RiceBag[] activeRiceBag = new RiceBag[3];
 
-    public int activeTargetCount = 1;
+    public GameObject shopWindow;
+    public GameObject dataWindow;
 
     public PoolManager pool;
     public MonkeyCS[] monkey;
@@ -68,6 +69,15 @@ public class GameManager : MonoBehaviour
     public void GameStart(int id)
     {
         
+    }
+
+    public void toggleWindow(GameObject targetWindow)
+    {
+        if (!targetWindow)
+            return;
+        
+        bool isActive = targetWindow.activeSelf;
+        targetWindow.SetActive(!isActive);
     }
 
 }

@@ -35,10 +35,13 @@ public class HUD : MonoBehaviour
                 myText.text = string.Format("Lv.{0:F0}", GameManager.instance.level);
                 break;
             case InfoType.Kill:
-
+                myText.text = string.Format("Kill : {0:F0}", GameManager.instance.kill);
                 break;
             case InfoType.Time:
-                
+                int hour = Mathf.FloorToInt(GameManager.instance.gameTime / 360);
+                int min = Mathf.FloorToInt(GameManager.instance.gameTime / 60);
+                int sec = Mathf.FloorToInt(GameManager.instance.gameTime % 60);
+                myText.text = string.Format("Time : {0:D2}:{1:D2}:{2:D2}", hour, min, sec);
                 break;
             case InfoType.Rice:
                 myText.text = string.Format("{0:F0}", GameManager.instance.rice);

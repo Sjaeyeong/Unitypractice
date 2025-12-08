@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        Application.targetFrameRate = 60; // 60프레임으로 설정
+        Application.targetFrameRate = 60; // 60�봽�젅�엫�쑝濡� �꽕�젙
     }
 
     public void GameStart(int id)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -17,9 +18,10 @@ public class GameManager : MonoBehaviour
     public int banana;
 
     [Header("# RiceBag Info")]
-    // public RiceBag[] riceBag;
-
     public RiceBag[] activeRiceBag = new RiceBag[3];
+    
+    [Header("# Shopt Info")]
+    public bool[] isBagTypeUnlocked = new bool[3] { true, false, false};
 
     public GameObject shopWindow;
     public GameObject dataWindow;
@@ -78,6 +80,39 @@ public class GameManager : MonoBehaviour
         
         bool isActive = targetWindow.activeSelf;
         targetWindow.SetActive(!isActive);
+    }
+
+    public bool UnlockedBagType(int bagIndex)
+    {
+        if (bagIndex < 0 || bagIndex >= isBagTypeUnlocked.Length)
+            return false;
+
+        if (isBagTypeUnlocked[bagIndex])
+            return true;
+
+        isBagTypeUnlocked[bagIndex] = true;
+        SaveBagUnlockState();
+
+        return true;
+    }
+
+    public void SaveBagUnlockState()
+    {
+        for (int i = 0; i < isBagTypeUnlocked.Length; i++)
+        {
+            PlayerPrefs.SetInt($"BagUnlock_{i}", isBagTypeUnlocked[i] ? 1 : 0);
+        }
+        PlayerPrefs.Save();
+    }
+
+    public void LoadBagUnlockState()
+    {
+        for (int i = 0; i < isBagTypeUnlocked.Length; i++)
+        {
+            isBagTypeUnlocked[i] = (PlayerPrefs.GetInt($"BagUnlock{i}", isBagTypeUnlocked[i] ? 1 : 0) == 1);
+        }
+
+        isBagTypeUnlocked[0] = true; // red always unlocked
     }
 
 }

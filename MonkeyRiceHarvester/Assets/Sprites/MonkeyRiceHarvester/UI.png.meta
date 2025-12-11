@@ -751,7 +751,7 @@ TextureImporter:
         width: 18
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 2, y: 3, z: 2, w: 4}
       customData: 
       outline: []
@@ -760,6 +760,182 @@ TextureImporter:
       bones: []
       spriteID: 990566109a5052548977f854f2ba58b9
       internalID: 846646843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Back 5
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 102
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 3, y: 3, z: 3, w: 3}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb7b01c8b8ca72e41b47cd25a04724be
+      internalID: -1200273390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Back6
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 102
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 3, y: 3, z: 3, w: 3}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44392620f5720d7428df72e50f930231
+      internalID: 431971385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Back7
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 102
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 3, y: 3, z: 3, w: 3}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0736763beb4a02b4eaf8ba8f052a609b
+      internalID: -2119391896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button 0
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 83
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 3, y: 2, z: 3, w: 3}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d893844ba92e7f445af0c0f002454b53
+      internalID: -400245974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Upgrade 0
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 68
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a977b1a2a504d564e9cf8a2730539ad3
+      internalID: -1028869891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Upgrade 1
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 69
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40fe897db09a2384a862d12e2bced90b
+      internalID: 1414701015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Upgrade 2
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 51
+        width: 14
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd3b4fcd3683ee349a49cd3e482ecde0
+      internalID: -350575487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Upgrade 3
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 52
+        width: 17
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd767828f91b74745a7a73c7b1f990da
+      internalID: 1553459134
       vertices: []
       indices: 
       edges: []
@@ -783,8 +959,12 @@ TextureImporter:
       Back 2: 1003169311
       Back 3: 923914614
       Back 4: 846646843
+      Back 5: -1200273390
+      Back6: 431971385
+      Back7: -2119391896
       Box 0: -155058199
       Box 1: 1777749549
+      Button 0: -400245974
       Front 0: 1312383074
       Front 1: -1722126508
       Front 2: 596224593
@@ -806,6 +986,10 @@ TextureImporter:
       Title 0: 1315674547
       Title 1: -1799623379
       Title 2: -77559378
+      Upgrade 0: -1028869891
+      Upgrade 1: 1414701015
+      Upgrade 2: -350575487
+      Upgrade 3: 1553459134
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

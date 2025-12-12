@@ -65,6 +65,21 @@ public class SpawnInputHandler : MonoBehaviour
         // greenBag.GetComponent<RiceBag>().Init(spawnData[2]);
     }
 
+    void RedSpawn()
+    {
+        
+    }
+
+    void BlueSpawn()
+    {
+        
+    }
+
+    void GreenSpawn()
+    {
+        
+    }
+
 }
 
 [System.Serializable]

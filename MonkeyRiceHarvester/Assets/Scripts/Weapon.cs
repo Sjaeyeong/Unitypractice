@@ -5,6 +5,7 @@ public class Weapon : MonoBehaviour
 {
     public int id;
     public int prefabId;
+
     public float damage;
     public int count;
     public float speed;
@@ -12,9 +13,14 @@ public class Weapon : MonoBehaviour
     public float critDmg;
     public int per;
 
+    [Header("# Base Value Backup")]
+    private float baseDamageValue;
+    private float baseSpeedValue;
+    private float baseCritValue;
+    private float baseCritDmgValue;
+
     [Header("Target Logic")]
     public Transform[] targets;
-    public int currentTargetIndex = 0;
 
     float timer;
     public bool isAttacking = false;
@@ -24,6 +30,13 @@ public class Weapon : MonoBehaviour
     {
         monkey = GetComponentInParent<MonkeyCS>();
         FindSpawnPoint();
+
+        baseDamageValue = damage;
+        baseSpeedValue = speed;
+        baseCritValue = crit;
+        baseCritDmgValue = critDmg;
+
+        UpgradeStats();
     }
 
     void Update()
@@ -70,6 +83,17 @@ public class Weapon : MonoBehaviour
         this.damage = damage;
 
         
+    }
+
+    public void UpgradeStats()
+    {
+        if (!monkey)
+            return;
+
+        damage += monkey.GetBaseDamageBonus();
+        speed += monkey.GetBaseAttackSpeedBonus();
+        crit = Mathf.Min(crit + monkey.GetBaseCriticalChanceBonus(), 1.0f);
+        critDmg = monkey.GetBaseCriticalDamageBonus();
     }
 
     public void Init()

@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 2.52, y: 0}
+  m_AnchoredPosition: {x: 2.5200005, y: 0}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &26946042
@@ -225,9 +225,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 226209278}
   - {fileID: 2124663374}
   - {fileID: 1089239238}
-  - {fileID: 226209278}
   - {fileID: 309813981}
   m_Father: {fileID: 202454273}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -253,10 +253,10 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -1140,7 +1140,7 @@ RectTransform:
   m_GameObject: {fileID: 202454272}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.06, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 57406093}
@@ -2179,7 +2179,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 2.52, y: 0}
+  m_AnchoredPosition: {x: 2.5200005, y: 0}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &453620292
@@ -3242,7 +3242,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 2.52, y: 0}
+  m_AnchoredPosition: {x: 2.5200005, y: 0}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &835615954
@@ -5245,6 +5245,97 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &1200869087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1200869089}
+  - component: {fileID: 1200869088}
+  m_Layer: 0
+  m_Name: ShopManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1200869088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200869087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0831658e239de1499e2166db78a15ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monkeyDamage:
+    statName: 
+    displayName: Monkey Damage
+    currentLv: 1
+    baseCost: 0
+    costIncreasePerLv: 0
+    baseValue: 0
+    valueIncreasePerLv: 0
+    levelText: {fileID: 1135645818}
+    costText: {fileID: 1587403223}
+    upgradeButton: {fileID: 902805853}
+  attackSpeed:
+    statName: 
+    displayName: Attack Speed
+    currentLv: 1
+    baseCost: 0
+    costIncreasePerLv: 0
+    baseValue: 0
+    valueIncreasePerLv: 0
+    levelText: {fileID: 2033083487}
+    costText: {fileID: 119964252}
+    upgradeButton: {fileID: 261348980}
+  criticalChance:
+    statName: 
+    displayName: Critical Chance
+    currentLv: 1
+    baseCost: 0
+    costIncreasePerLv: 0
+    baseValue: 0
+    valueIncreasePerLv: 0
+    levelText: {fileID: 927524308}
+    costText: {fileID: 1124439861}
+    upgradeButton: {fileID: 113257350}
+  criticalDamage:
+    statName: 
+    displayName: Critical Damage
+    currentLv: 1
+    baseCost: 0
+    costIncreasePerLv: 0
+    baseValue: 0
+    valueIncreasePerLv: 0
+    levelText: {fileID: 1581576604}
+    costText: {fileID: 1056196859}
+    upgradeButton: {fileID: 1109898961}
+  monkeyData: {fileID: 789242023}
+  riceText: {fileID: 1500233587}
+  bananaText: {fileID: 971501675}
+--- !u!4 &1200869089
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200869087}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1241583511
 GameObject:
   m_ObjectHideFlags: 0
@@ -5765,7 +5856,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 2.52, y: 0}
+  m_AnchoredPosition: {x: 2.5200005, y: 0}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1356644448
@@ -7828,6 +7919,7 @@ SceneRoots:
   - {fileID: 1332216024}
   - {fileID: 1137288947}
   - {fileID: 1619401406}
+  - {fileID: 1200869089}
   - {fileID: 926014554}
   - {fileID: 1009642211}
   - {fileID: 1153837965}

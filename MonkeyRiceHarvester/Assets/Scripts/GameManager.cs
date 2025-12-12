@@ -82,19 +82,19 @@ public class GameManager : MonoBehaviour
         targetWindow.SetActive(!isActive);
     }
 
-    public bool UnlockedBagType(int bagIndex)
-    {
-        if (bagIndex < 0 || bagIndex >= isBagTypeUnlocked.Length)
-            return false;
+    // public bool UnlockedBagType(int bagIndex)
+    // {
+    //     if (bagIndex < 0 || bagIndex >= isBagTypeUnlocked.Length)
+    //         return false;
 
-        if (isBagTypeUnlocked[bagIndex])
-            return true;
+    //     if (isBagTypeUnlocked[bagIndex])
+    //         return true;
 
-        isBagTypeUnlocked[bagIndex] = true;
-        SaveBagUnlockState();
+    //     isBagTypeUnlocked[bagIndex] = true;
+    //     SaveBagUnlockState();
 
-        return true;
-    }
+    //     return true;
+    // }
 
     public void SaveBagUnlockState()
     {

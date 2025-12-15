@@ -15,15 +15,16 @@ public class RiceBag : MonoBehaviour
     public int rice;
     public int banana;
 
+    public float baseHP;
+    public int baseRice;
+    public float baseExp;
+
     public RuntimeAnimatorController[] animCon;
 
     Rigidbody2D rigid;
     Animator anim;
     SpriteRenderer spriter;
     Collider2D coll;
-
-    public SpawnData[] spawnData;
-
 
     void Awake()
     {
@@ -36,37 +37,71 @@ public class RiceBag : MonoBehaviour
     void OnEnable() // 다시 소환될때 적용될 코드
     {
         isLive = true;
+
         level++;
-        if (level % 10 == 0)
-        {
-            anim.runtimeAnimatorController = animCon[1];
-            maxHp = hp * 1.2f;
-        }
-        else
-        {
-            anim.runtimeAnimatorController = animCon[0];
-            maxHp = hp;
+
+        // float levelMult = 1f + (level * 0.1f);
+        // float currentBaseHp = baseHP * levelMult;
+
+        // exp = baseExp;
+        // rice = baseRice;
+
+        // if (level % 10 == 0)
+        // {
+        //     anim.runtimeAnimatorController = animCon[1];
+        //     maxHp = currentBaseHp * 1.2f;
+        //     banana = level / 10;
+        // }
+        // else
+        // {
+        //     anim.runtimeAnimatorController = animCon[0];
+        //     maxHp = currentBaseHp;
+        //     banana = 0;
             
-        }
-        hp = maxHp;
+        // }
+
+        // hp = maxHp;
         coll.enabled = true;
         rigid.simulated = true;
         anim.SetBool("Destroy", false);
     }
 
-    public void Init(SpawnData data)
+    public void ForceRecalculateHP()
     {
-        exp = data.exp;
-        hp = data.hp;
-        maxHp = data.maxHP;
-        rice = data.rice;
-        banana = data.banana;
-        
+        float levelMult = 1f + (level * 0.1f);
+        float currentBaseHp = baseHP * levelMult;
+
+        exp = baseExp;
+        rice = baseRice;
+
+        if (level % 10 == 0)
+        {
+            anim.runtimeAnimatorController = animCon[1];
+            maxHp = currentBaseHp * 1.2f;
+            banana = level / 10;
+        }
+        else
+        {
+            anim.runtimeAnimatorController = animCon[0];
+            maxHp = currentBaseHp;
+            banana = 0;
+            
+        }
+
+        hp = maxHp;
     }
+
+    // public void Init(SpawnData data)
+    // {
+    //     baseExp = data.exp;
+    //     baseHP = data.hp;
+    //     baseRice = data.rice;
+        
+    // }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.CompareTag("Bullet") || !isLive)
+        if (!collision.CompareTag("Bullet") || !isLive) 
             return;
 
         hp -= collision.GetComponent<Bullet>().damage;
@@ -86,6 +121,12 @@ public class RiceBag : MonoBehaviour
             // level++;
             GameManager.instance.kill++;
             GameManager.instance.GetExp(exp);
+
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.rice += rice;
+                GameManager.instance.banana += banana;
+            }
             
             anim.SetBool("Destroy", true);
             

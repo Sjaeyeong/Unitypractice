@@ -212,6 +212,8 @@ MonoBehaviour:
   maxHp: 0
   level: 0
   isLive: 0
+  rice: 5
+  banana: 0
   animCon:
   - {fileID: 9100000, guid: 50816779200f68d4b8627980cdb58643, type: 2}
   - {fileID: 22100000, guid: b215e664b4dfa0146a728af5fe6c6750, type: 2}

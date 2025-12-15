@@ -22,14 +22,19 @@ public class HUD : MonoBehaviour
 
     void LateUpdate()
     {
+        if (GameManager.instance == null)
+            return;
 
+        RiceBag currentBag = null;
+        int index = -1;
 
         switch (type)
         {
             case InfoType.Exp:
                 float curExp = GameManager.instance.exp;
                 float maxExp = GameManager.instance.nextExp;
-                mySlider.value = curExp / maxExp;
+                if (mySlider != null && maxExp > 0)
+                    mySlider.value = curExp / maxExp;
                 break;
             case InfoType.Level:
                 myText.text = string.Format("Lv.{0:F0}", GameManager.instance.level);

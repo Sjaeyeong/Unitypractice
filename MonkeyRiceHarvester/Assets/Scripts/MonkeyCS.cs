@@ -81,7 +81,7 @@ public class MonkeyCS : MonoBehaviour
 
     public void SetAttackSpeed(float bonusValue)
     {
-        BonusDamage = bonusValue;
+        BonusAttackSpeed = bonusValue;
         if (weapon != null)
         {
             weapon.UpgradeStats();
@@ -90,7 +90,7 @@ public class MonkeyCS : MonoBehaviour
 
     public void SetCriticalChance(float bonusValue)
     {
-        BonusDamage = bonusValue;
+        BonusCriticalChance = bonusValue;
         if (weapon != null)
         {
             weapon.UpgradeStats();
@@ -99,7 +99,7 @@ public class MonkeyCS : MonoBehaviour
 
     public void SetCriticalDamage(float bonusValue)
     {
-        BonusDamage = bonusValue;
+        BonusCriticalDamage = bonusValue;
         if (weapon != null)
         {
             weapon.UpgradeStats();

@@ -32,8 +32,14 @@ public class SpawnInputHandler : MonoBehaviour
 
     void Spawn()
     {
+        if (GameManager.instance == null)
+            return;
+
         for (int i=0; i<TOTAL_BAGTYPES; i++)
         {
+            if (!GameManager.instance.isBagTypeUnlocked[i])
+                continue;
+            
             GameObject existingBag = spawnedBags[i];
 
             if (existingBag != null && existingBag.activeSelf)
@@ -43,41 +49,19 @@ public class SpawnInputHandler : MonoBehaviour
 
             GameObject bag = GameManager.instance.pool.Get(i);
             bag.transform.position = spawnPoint[i+1].position;
-            bag.GetComponent<RiceBag>().Init(spawnData[i]);
+
+            RiceBag riceBag = bag.GetComponent<RiceBag>();
+
+            riceBag.baseExp = spawnData[i].exp;
+            riceBag.baseHP = spawnData[i].hp;
+            riceBag.baseRice = spawnData[i].rice;
+
+            riceBag.ForceRecalculateHP();
             
             spawnedBags[i] = bag;
 
-            if (GameManager.instance != null)
-            {
-                GameManager.instance.activeRiceBag[i] = bag.GetComponent<RiceBag>();
-            }
+            GameManager.instance.activeRiceBag[i] = bag.GetComponent<RiceBag>();
         }
-        // GameObject redBag = GameManager.instance.pool.Get(0);
-        // GameObject blueBag = GameManager.instance.pool.Get(1);
-        // GameObject greenBag = GameManager.instance.pool.Get(2);
-
-        // redBag.transform.position = spawnPoint[1].position;
-        // blueBag.transform.position = spawnPoint[2].position;
-        // greenBag.transform.position = spawnPoint[3].position;
-
-        // redBag.GetComponent<RiceBag>().Init(spawnData[0]);
-        // blueBag.GetComponent<RiceBag>().Init(spawnData[1]);
-        // greenBag.GetComponent<RiceBag>().Init(spawnData[2]);
-    }
-
-    void RedSpawn()
-    {
-        
-    }
-
-    void BlueSpawn()
-    {
-        
-    }
-
-    void GreenSpawn()
-    {
-        
     }
 
 }

@@ -21,16 +21,18 @@ public class ShopManager : MonoBehaviour
         public Button upgradeButton;
     }
 
-        // [System.Serializable]
-    // public class ShopItem
-    // {
-    //     public int bagIndex;
-    //     public string itemName;
-    //     public int bananaCost;
-    // }
+        [System.Serializable]
+    public class ShopItem
+    {
+        public int bagIndex;
+        public string itemName;
+        public int bananaCost;
+        public Button purchaseButton;
+        public GameObject unlockedText;
+    }
 
-    // [Header("# Shop Items")]
-    // public ShopItem[] shopItems;
+    [Header("# Shop Items")]
+    public ShopItem[] shopItems;
 
     [Header("# Upgrade Items")]
     public UpgradeItem monkeyDamage;
@@ -54,6 +56,7 @@ public class ShopManager : MonoBehaviour
         InitializeUpgrade(criticalChance, "CriticalChance");
         InitializeUpgrade(criticalDamage, "CriticalDamage");
 
+        InitializeBagPurchases();
         UpdateCurrencyUI();
     }
 
@@ -75,6 +78,30 @@ public class ShopManager : MonoBehaviour
         UpdateUpgradeUI(item);
     }
 
+    void InitializeBagPurchases()
+    {
+        for (int i = 0; i < shopItems.Length; i++)
+        {
+            ShopItem item = shopItems[i];
+
+            if (i == 0) continue;
+
+            if (GameManager.instance != null)
+            {
+                if (GameManager.instance.isBagTypeUnlocked[item.bagIndex])
+                {
+                    item.purchaseButton.gameObject.SetActive(false);
+                    item.unlockedText.SetActive(true);
+                }
+                else
+                {
+                    item.purchaseButton.onClick.AddListener(() => PurchaseBag(item));
+                    UpdateBagPurchaseUI(item);
+                }
+            }
+        }
+    }
+
     void UpdateUpgradeUI(UpgradeItem item)
     {
         item.levelText.text = $"{item.displayName} Lv.{item.currentLv}";
@@ -84,6 +111,14 @@ public class ShopManager : MonoBehaviour
 
         if (GameManager.instance != null){
             item.upgradeButton.interactable = GameManager.instance.banana >= nextCost;
+        }
+    }
+
+    void UpdateBagPurchaseUI(ShopItem item)
+    {
+        if (GameManager.instance != null)
+        {
+            item.purchaseButton.interactable = (GameManager.instance.banana >= item.bananaCost);
         }
     }
 
@@ -114,6 +149,27 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    public void PurchaseBag(ShopItem item)
+    {
+        if (GameManager.instance == null) return;
+
+        if (GameManager.instance.banana >= item.bananaCost)
+        {
+            GameManager.instance.banana -= item.bananaCost;
+
+            GameManager.instance.isBagTypeUnlocked[item.bagIndex] = true;
+            GameManager.instance.SaveBagUnlockState();
+
+            item.purchaseButton.gameObject.SetActive(false);
+            item.unlockedText.SetActive(true);
+            UpdateCurrencyUI();
+        }
+        else
+        {
+            UpdateBagPurchaseUI(item);
+        }
+    }
+
     void UpdateMonkeyStat(string statName, float newValue)
     {
         switch (statName)
@@ -132,21 +188,6 @@ public class ShopManager : MonoBehaviour
                 break;
         }
     }
-
-    // public void PurchaseBag(int itemIndex)
-    // {
-    //     if (itemIndex < 0 || itemIndex >= shopItems.Length)
-    //         return;
-
-    //     ShopItem item = shopItems[itemIndex];
-    //     int bagIndex = item.bagIndex;
-
-    //     if (GameManager.instance.isBagTypeUnlocked[bagIndex])
-    //     {
-
-    //     }
-    // }
-
 
 
 }

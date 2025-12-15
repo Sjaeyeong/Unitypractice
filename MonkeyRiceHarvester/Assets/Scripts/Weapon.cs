@@ -90,10 +90,10 @@ public class Weapon : MonoBehaviour
         if (!monkey)
             return;
 
-        damage += monkey.GetBaseDamageBonus();
-        speed += monkey.GetBaseAttackSpeedBonus();
-        crit = Mathf.Min(crit + monkey.GetBaseCriticalChanceBonus(), 1.0f);
-        critDmg = monkey.GetBaseCriticalDamageBonus();
+        damage = baseDamageValue + monkey.GetBaseDamageBonus();
+        speed = baseSpeedValue + monkey.GetBaseAttackSpeedBonus();
+        crit = Mathf.Min(baseCritValue + monkey.GetBaseCriticalChanceBonus(), 1.0f);
+        critDmg = baseCritDmgValue + monkey.GetBaseCriticalDamageBonus();
     }
 
     public void Init()

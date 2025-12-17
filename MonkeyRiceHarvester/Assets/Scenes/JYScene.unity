@@ -5293,6 +5293,7 @@ MonoBehaviour:
     costIncreasePerLv: 10
     baseValue: 5
     valueIncreasePerLv: 5
+    totalStat: 0
     levelText: {fileID: 1135645818}
     costText: {fileID: 1587403223}
     upgradeButton: {fileID: 902805853}
@@ -5304,6 +5305,7 @@ MonoBehaviour:
     costIncreasePerLv: 12
     baseValue: 0.05
     valueIncreasePerLv: 0.05
+    totalStat: 0
     levelText: {fileID: 2033083487}
     costText: {fileID: 119964252}
     upgradeButton: {fileID: 261348980}
@@ -5315,6 +5317,7 @@ MonoBehaviour:
     costIncreasePerLv: 15
     baseValue: 0.01
     valueIncreasePerLv: 0.01
+    totalStat: 0
     levelText: {fileID: 927524308}
     costText: {fileID: 1124439861}
     upgradeButton: {fileID: 113257350}
@@ -5326,6 +5329,7 @@ MonoBehaviour:
     costIncreasePerLv: 30
     baseValue: 0.1
     valueIncreasePerLv: 0.1
+    totalStat: 0
     levelText: {fileID: 1581576604}
     costText: {fileID: 1056196859}
     upgradeButton: {fileID: 1109898961}

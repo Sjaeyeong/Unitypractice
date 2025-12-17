@@ -25,9 +25,6 @@ public class HUD : MonoBehaviour
         if (GameManager.instance == null)
             return;
 
-        RiceBag currentBag = null;
-        int index = -1;
-
         switch (type)
         {
             case InfoType.Exp:

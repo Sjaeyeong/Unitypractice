@@ -55,7 +55,7 @@ public class SpawnInputHandler : MonoBehaviour
             riceBag.baseExp = spawnData[i].exp;
             riceBag.baseHP = spawnData[i].hp;
             riceBag.baseRice = spawnData[i].rice;
-
+            
             riceBag.ForceRecalculateHP();
             
             spawnedBags[i] = bag;

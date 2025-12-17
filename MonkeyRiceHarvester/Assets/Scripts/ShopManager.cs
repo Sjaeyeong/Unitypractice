@@ -16,6 +16,9 @@ public class ShopManager : MonoBehaviour
         public float baseValue;
         public float valueIncreasePerLv;
 
+        [Header("Realtime Info")]
+        public float totalStat;
+
         public Text levelText;
         public Text costText;
         public Button upgradeButton;
@@ -76,6 +79,7 @@ public class ShopManager : MonoBehaviour
         item.statName = statName;
         item.upgradeButton.onClick.AddListener(() => BuyUpgrade(item));
         UpdateUpgradeUI(item);
+        UpdateMonkeyStat(item.statName, item.totalStat);
     }
 
     void InitializeBagPurchases()
@@ -107,11 +111,13 @@ public class ShopManager : MonoBehaviour
         item.levelText.text = $"{item.displayName} Lv.{item.currentLv}";
 
         long nextCost = item.baseCost + (item.currentLv * item.costIncreasePerLv);
-        item.costText.text = nextCost.ToString("NO");
+        item.costText.text = nextCost.ToString("0");
 
-        if (GameManager.instance != null){
-            item.upgradeButton.interactable = GameManager.instance.banana >= nextCost;
-        }
+        item.totalStat = item.baseValue + item.currentLv * item.valueIncreasePerLv;
+
+        // if (GameManager.instance != null){
+        //     item.upgradeButton.interactable = GameManager.instance.rice >= nextCost;
+        // }
     }
 
     void UpdateBagPurchaseUI(ShopItem item)
@@ -129,9 +135,9 @@ public class ShopManager : MonoBehaviour
 
         int cost =  item.baseCost + (item.currentLv * item.costIncreasePerLv);
 
-        if (GameManager.instance.banana >= cost)
+        if (GameManager.instance.rice >= cost)
         {
-            GameManager.instance.banana -= cost;
+            GameManager.instance.rice -= cost;
             UpdateCurrencyUI();
 
             item.currentLv++;

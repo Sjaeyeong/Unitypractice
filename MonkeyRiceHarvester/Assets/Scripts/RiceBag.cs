@@ -40,27 +40,6 @@ public class RiceBag : MonoBehaviour
 
         level++;
 
-        // float levelMult = 1f + (level * 0.1f);
-        // float currentBaseHp = baseHP * levelMult;
-
-        // exp = baseExp;
-        // rice = baseRice;
-
-        // if (level % 10 == 0)
-        // {
-        //     anim.runtimeAnimatorController = animCon[1];
-        //     maxHp = currentBaseHp * 1.2f;
-        //     banana = level / 10;
-        // }
-        // else
-        // {
-        //     anim.runtimeAnimatorController = animCon[0];
-        //     maxHp = currentBaseHp;
-        //     banana = 0;
-            
-        // }
-
-        // hp = maxHp;
         coll.enabled = true;
         rigid.simulated = true;
         anim.SetBool("Destroy", false);

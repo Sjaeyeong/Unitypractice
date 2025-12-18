@@ -21,6 +21,9 @@ public class RiceBag : MonoBehaviour
 
     public RuntimeAnimatorController[] animCon;
 
+    [Header("# HUD Link")]
+    public Slider hudHpSlider;
+
     Rigidbody2D rigid;
     Animator anim;
     SpriteRenderer spriter;
@@ -43,6 +46,14 @@ public class RiceBag : MonoBehaviour
         coll.enabled = true;
         rigid.simulated = true;
         anim.SetBool("Destroy", false);
+    }
+
+    void LateUpdate()
+    {
+        if (hudHpSlider != null && hudHpSlider.gameObject.activeInHierarchy)
+        {
+            hudHpSlider.value = hp / maxHp; 
+        }
     }
 
     public void ForceRecalculateHP()

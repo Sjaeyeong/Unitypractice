@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,11 +18,26 @@ public class GameManager : MonoBehaviour
     public int rice;
     public int banana;
 
+    [Header("# Banana Shop Info")]
+    public bool isAutoSpawn = false;
+    public int maxBagcount = 1;
+    public int towerMonkeyCount = 0; // max is 2
+    public bool bagUpgrade = false;
+    public int bonusAmmo = 0; // max is 3
+    public int bonusMonkey = 0; // max is 2
+
     [Header("# RiceBag Info")]
     public RiceBag[] activeRiceBag = new RiceBag[3];
     
     [Header("# Shopt Info")]
     public bool[] isBagTypeUnlocked = new bool[3] { true, false, false};
+
+    [Header("# HUD References")]
+    public GameObject hudBlueBarParent;
+    public GameObject hudGreenBarParent;
+    public Slider hudRedSlider;
+    public Slider hudBlueSlider;
+    public Slider hudGreenSlider;
 
     public GameObject shopWindow;
     public GameObject dataWindow;
@@ -35,6 +51,8 @@ public class GameManager : MonoBehaviour
         instance = this;
         Application.targetFrameRate = 60;
         level = 1;
+
+        UpdateHUDHealthBars();
 
     }
 
@@ -99,6 +117,15 @@ public class GameManager : MonoBehaviour
         }
 
         isBagTypeUnlocked[0] = true; // red always unlocked
+    }
+
+    public void UpdateHUDHealthBars()
+    {
+        if (hudBlueBarParent != null)
+            hudBlueBarParent.SetActive(maxBagcount >= 2);
+
+        if (hudGreenBarParent != null)
+            hudGreenBarParent.SetActive(maxBagcount >= 3);
     }
 
 }

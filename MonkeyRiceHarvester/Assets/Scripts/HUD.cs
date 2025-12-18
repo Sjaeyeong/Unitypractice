@@ -40,45 +40,58 @@ public class HUD : MonoBehaviour
                 myText.text = string.Format("Kill : {0:F0}", GameManager.instance.kill);
                 break;
             case InfoType.Time:
-                int hour = Mathf.FloorToInt(GameManager.instance.gameTime / 360);
+                int hour = Mathf.FloorToInt(GameManager.instance.gameTime / 3600);
                 int min = Mathf.FloorToInt(GameManager.instance.gameTime / 60);
                 int sec = Mathf.FloorToInt(GameManager.instance.gameTime % 60);
                 myText.text = string.Format("Time : {0:D2}:{1:D2}:{2:D2}", hour, min, sec);
                 break;
             case InfoType.Rice:
-                myText.text = string.Format("{0:F0}", GameManager.instance.rice);
+                myText.text = string.Format("{0:N0}", GameManager.instance.rice);
                 break;
             case InfoType.Banana:
-                myText.text = string.Format("{0:F0}", GameManager.instance.banana);
+                myText.text = string.Format("{0:N0}", GameManager.instance.banana);
                 break;
             case InfoType.redHP:
-                float curRedHP = GameManager.instance.activeRiceBag[0].hp;
-                float maxRedHp = GameManager.instance.activeRiceBag[0].maxHp;
-                mySlider.value = curRedHP / maxRedHp;
+                UpdateBagHP(0);
                 break;
             case InfoType.blueHP:
-                float curBlueHP = GameManager.instance.activeRiceBag[1].hp;
-                float maxBlueHp = GameManager.instance.activeRiceBag[1].maxHp;
-                mySlider.value = curBlueHP / maxBlueHp;
+                UpdateBagHP(1);
                 break;
             case InfoType.greenHP:
-                float curGreenHP = GameManager.instance.activeRiceBag[2].hp;
-                float maxGreenHp = GameManager.instance.activeRiceBag[2].maxHp;
-                mySlider.value = curGreenHP / maxGreenHp;
+                UpdateBagHP(2);
                 break;
+
             case InfoType.redBagLevel:
-                myText.text = string.Format("빨강 쌀포대 Lv.{0:F0}", GameManager.instance.activeRiceBag[0].level);
+                UpdateBagLevel(0, "빨강");
                 break;
             case InfoType.blueBagLevel:
-                myText.text = string.Format("파랑 쌀포대 Lv.{0:F0}", GameManager.instance.activeRiceBag[1].level);
+                UpdateBagLevel(1, "파랑");
                 break;
             case InfoType.greenBagLevel:
-                myText.text = string.Format("초록 쌀포대 Lv.{0:F0}", GameManager.instance.activeRiceBag[2].level);
+                UpdateBagLevel(2, "초록");
                 break;
-            // case InfoType.NULL:
+        }
+    }
 
-            //     break;
+    void UpdateBagHP(int index)
+    {
+        if (mySlider == null) return;
+        
+        if (GameManager.instance.activeRiceBag[index] != null)
+        {
+            float curHP = GameManager.instance.activeRiceBag[index].hp;
+            float maxHP = GameManager.instance.activeRiceBag[index].maxHp;
+            mySlider.value = curHP / maxHP;
+        }
+    }
 
+    void UpdateBagLevel(int index, string colorName)
+    {
+        if (myText == null) return;
+
+        if (GameManager.instance.activeRiceBag[index] != null)
+        {
+            myText.text = string.Format("{0} 쌀포대 Lv.{1:F0}", colorName, GameManager.instance.activeRiceBag[index].level);
         }
     }
 

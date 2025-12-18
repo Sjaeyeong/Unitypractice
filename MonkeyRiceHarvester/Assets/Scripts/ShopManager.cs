@@ -5,6 +5,16 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
+    public enum SpecialType
+    {
+        AutoSpawn,
+        BagCount,
+        TowerMonkey,
+        UpgradeBag,
+        BonusAmmo,
+        ExtraMonkey
+    }
+
     [System.Serializable]
     public class UpgradeItem
     {
@@ -16,7 +26,7 @@ public class ShopManager : MonoBehaviour
         public float baseValue;
         public float valueIncreasePerLv;
 
-        [Header("Realtime Info")]
+        [Header("# Realtime Info")]
         public float totalStat;
 
         public Text levelText;
@@ -25,24 +35,33 @@ public class ShopManager : MonoBehaviour
     }
 
         [System.Serializable]
-    public class ShopItem
+    public class SpecialItem
     {
-        public int bagIndex;
+        [Header("# Settings")]
         public string itemName;
+        public SpecialType type;
         public int bananaCost;
+        public int maxLevel;
+
+        [HideInInspector]
+        public int currentLevel = 0;
+
+        [Header("# UI References")]
         public Button purchaseButton;
-        public GameObject unlockedText;
+        public Text costText;
+        public GameObject maxLevelObj;
     }
 
-    [Header("# Shop Items")]
-    public ShopItem[] shopItems;
-
-    [Header("# Upgrade Items")]
+    [Header("# Rice Shop Items")]
     public UpgradeItem monkeyDamage;
     public UpgradeItem attackSpeed;
     public UpgradeItem criticalChance;
     public UpgradeItem criticalDamage;
 
+    [Header("# Banana Shop Items")]
+    public SpecialItem[] specialItems;
+
+    [Header("# Global References")]
     public MonkeyCS monkeyData;
     public Text riceText;
     public Text bananaText;
@@ -59,7 +78,8 @@ public class ShopManager : MonoBehaviour
         InitializeUpgrade(criticalChance, "CriticalChance");
         InitializeUpgrade(criticalDamage, "CriticalDamage");
 
-        InitializeBagPurchases();
+        InitializeSpecialShop();
+
         UpdateCurrencyUI();
     }
 
@@ -74,44 +94,30 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    // ========================================================================
+    // 쌀 상점 로직 (Stats)
+    // ========================================================================
+
     void InitializeUpgrade(UpgradeItem item, string statName)
     {
         item.statName = statName;
+
+        item.upgradeButton.onClick.RemoveAllListeners();
         item.upgradeButton.onClick.AddListener(() => BuyUpgrade(item));
+
         UpdateUpgradeUI(item);
         UpdateMonkeyStat(item.statName, item.totalStat);
     }
 
-    void InitializeBagPurchases()
-    {
-        for (int i = 0; i < shopItems.Length; i++)
-        {
-            ShopItem item = shopItems[i];
-
-            if (i == 0) continue;
-
-            if (GameManager.instance != null)
-            {
-                if (GameManager.instance.isBagTypeUnlocked[item.bagIndex])
-                {
-                    item.purchaseButton.gameObject.SetActive(false);
-                    item.unlockedText.SetActive(true);
-                }
-                else
-                {
-                    item.purchaseButton.onClick.AddListener(() => PurchaseBag(item));
-                    UpdateBagPurchaseUI(item);
-                }
-            }
-        }
-    }
-
     void UpdateUpgradeUI(UpgradeItem item)
     {
-        item.levelText.text = $"{item.displayName} Lv.{item.currentLv}";
+        if (item.levelText != null)
+            item.levelText.text = $"{item.displayName} Lv.{item.currentLv}";
 
         long nextCost = item.baseCost + (item.currentLv * item.costIncreasePerLv);
-        item.costText.text = nextCost.ToString("0");
+
+        if (item.levelText != null)
+            item.costText.text = nextCost.ToString("0");
 
         item.totalStat = item.baseValue + item.currentLv * item.valueIncreasePerLv;
 
@@ -119,60 +125,23 @@ public class ShopManager : MonoBehaviour
         //     item.upgradeButton.interactable = GameManager.instance.rice >= nextCost;
         // }
     }
-
-    void UpdateBagPurchaseUI(ShopItem item)
-    {
-        if (GameManager.instance != null)
-        {
-            item.purchaseButton.interactable = (GameManager.instance.banana >= item.bananaCost);
-        }
-    }
-
     public void BuyUpgrade(UpgradeItem item)
     {
-        if (GameManager.instance == null || monkeyData == null)
-            return;
+        if (GameManager.instance == null) return;
 
-        int cost =  item.baseCost + (item.currentLv * item.costIncreasePerLv);
+        long cost = item.baseCost + (item.currentLv * item.costIncreasePerLv);
 
         if (GameManager.instance.rice >= cost)
         {
-            GameManager.instance.rice -= cost;
+            GameManager.instance.rice -= (int)cost;
             UpdateCurrencyUI();
 
             item.currentLv++;
 
-            float newValue = item.baseValue + (item.currentLv * item.valueIncreasePerLv);
-
-            UpdateMonkeyStat(item.statName, newValue);
-
             UpdateUpgradeUI(item);
+            UpdateMonkeyStat(item.statName, item.totalStat);
+
             Debug.Log($"Upgraded {item.statName} to Level {item.currentLv}.");
-        }
-        else
-        {
-            Debug.Log($"Not enough Banana to upgrade {item.statName}. Required: {cost}");
-        }
-    }
-
-    public void PurchaseBag(ShopItem item)
-    {
-        if (GameManager.instance == null) return;
-
-        if (GameManager.instance.banana >= item.bananaCost)
-        {
-            GameManager.instance.banana -= item.bananaCost;
-
-            GameManager.instance.isBagTypeUnlocked[item.bagIndex] = true;
-            GameManager.instance.SaveBagUnlockState();
-
-            item.purchaseButton.gameObject.SetActive(false);
-            item.unlockedText.SetActive(true);
-            UpdateCurrencyUI();
-        }
-        else
-        {
-            UpdateBagPurchaseUI(item);
         }
     }
 
@@ -195,5 +164,128 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    // ========================================================================
+    //  바나나 상점 로직 (Special)
+    // ========================================================================
 
+    void InitializeSpecialShop()
+    {
+        foreach (var item in specialItems)
+        {
+            SyncSpecialItemLevel(item);
+            UpdateSpecialUI(item);
+
+            item.purchaseButton.onClick.RemoveAllListeners();
+            item.purchaseButton.onClick.AddListener(() => PurchaseSpecial(item));
+        }
+    }
+    void SyncSpecialItemLevel(SpecialItem item)
+    {
+        if (GameManager.instance == null) return;
+
+        switch (item.type)
+        {
+            case SpecialType.AutoSpawn:
+                item.currentLevel = GameManager.instance.isAutoSpawn ? 1 : 0;
+                break;
+            case SpecialType.BagCount:
+                item.currentLevel = GameManager.instance.maxBagcount - 1;
+                break;
+            case SpecialType.TowerMonkey:
+                item.currentLevel = GameManager.instance.towerMonkeyCount;
+                break;
+            case SpecialType.UpgradeBag:
+                item.currentLevel = GameManager.instance.bagUpgrade ? 1 : 0;
+                break;
+            case SpecialType.BonusAmmo:
+                item.currentLevel = GameManager.instance.bonusAmmo;
+                break;
+            case SpecialType.ExtraMonkey:
+                item.currentLevel = GameManager.instance.bonusMonkey;
+                break;
+        }
+    }
+
+    void UpdateSpecialUI(SpecialItem item)
+    {
+        if (item.costText != null)
+            item.costText.text = item.bananaCost.ToString("N0");
+
+        bool isMax = item.currentLevel >= item.maxLevel;
+
+        item.purchaseButton.gameObject.SetActive(!isMax);
+        if (item.maxLevelObj != null)
+            item.maxLevelObj.SetActive(isMax);
+
+        if (!isMax && GameManager.instance != null)
+        {
+            item.purchaseButton.interactable = GameManager.instance.banana >= item.bananaCost;
+        }
+    }
+
+    public void PurchaseSpecial(SpecialItem item)
+    {
+        if (GameManager.instance == null) return;
+
+        if (GameManager.instance.banana >= item.bananaCost)
+        {
+            GameManager.instance.banana -= item.bananaCost;
+            UpdateCurrencyUI();
+
+            item.currentLevel++;
+
+            ApplySpecialEffect(item.type);
+
+            UpdateSpecialUI(item);
+
+            Debug.Log($"Purchased {item.type}. Current Level: {item.currentLevel}");
+        }
+        else
+        {
+            Debug.Log("Not enough Banana!");
+        }
+    }
+
+    void ApplySpecialEffect(SpecialType type)
+    {
+        switch (type)
+        {
+            case SpecialType.AutoSpawn:
+                GameManager.instance.isAutoSpawn = true;
+                break;
+
+            case SpecialType.BagCount:
+                GameManager.instance.maxBagcount++;
+
+                if (GameManager.instance.maxBagcount <= 3)
+                {
+                    int unlockIndex = GameManager.instance.maxBagcount - 1;
+
+                    if (unlockIndex < GameManager.instance.isBagTypeUnlocked.Length)
+                    {
+                        GameManager.instance.isBagTypeUnlocked[unlockIndex] = true;
+                        GameManager.instance.SaveBagUnlockState();
+                    }
+                }
+
+                GameManager.instance.UpdateHUDHealthBars();
+                break;
+
+            case SpecialType.TowerMonkey:
+                GameManager.instance.towerMonkeyCount++;
+                break;
+
+            case SpecialType.UpgradeBag:
+                GameManager.instance.bagUpgrade = true;
+                break;
+
+            case SpecialType.BonusAmmo:
+                GameManager.instance.bonusAmmo++;
+                break;
+
+            case SpecialType.ExtraMonkey:
+                GameManager.instance.bonusMonkey++;
+                break;
+        }
+    }
 }

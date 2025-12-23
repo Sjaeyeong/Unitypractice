@@ -127,6 +127,13 @@ public class RiceBag : MonoBehaviour
     void Destroy()
     {
         gameObject.SetActive(false);
+
+        if (GameManager.instance != null && GameManager.instance.isAutoSpawn)
+        {
+            SpawnInputHandler spawner = FindAnyObjectByType<SpawnInputHandler>();
+            if(spawner != null)
+                spawner.Invoke("Spawn", 0.7f);
+        }
     }
 
 }

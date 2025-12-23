@@ -48,19 +48,49 @@ public class MonkeyCS : MonoBehaviour
 
     void Scan()
     {
-        target = null;
-
-        if (spawner == null || spawner.spawnedBags == null)
-            return;
-        
-        for (int i=0; i< spawner.spawnedBags.Length; i++)
+        if (target != null && target.gameObject.activeSelf)
         {
-            GameObject bagObject = spawner.spawnedBags[i];
+            RiceBag rb = target.GetComponent<RiceBag>();
+            if (rb != null && rb.isLive) return; 
+        }
 
+        // 2. 새로운 타겟 찾기 (HP 우선 -> 거리 차선)
+        target = null;
+        float maxRatio = -1f;
+        float minDist = Mathf.Infinity;
+
+        if (spawner == null || spawner.spawnedBags == null) return;
+
+        foreach (GameObject bagObject in spawner.spawnedBags)
+        {
             if (bagObject != null && bagObject.activeSelf)
             {
-                target = bagObject.transform;
-                break;
+                RiceBag riceBag = bagObject.GetComponent<RiceBag>();
+                
+                // 살아있는 가방 중에서만 검사
+                if (riceBag != null && riceBag.isLive)
+                {
+                    // 체력 비율 계산 (0.0 ~ 1.0)
+                    float currentRatio = riceBag.hp / riceBag.maxHp;
+                    float currentDist = Vector2.Distance(transform.position, bagObject.transform.position);
+
+                    // 우선순위 1: 체력 비율이 더 높은 가방을 발견한 경우
+                    if (currentRatio > maxRatio)
+                    {
+                        maxRatio = currentRatio;
+                        minDist = currentDist;
+                        target = bagObject.transform;
+                    }
+                    // 우선순위 2: 체력 비율이 같다면(예: 모두 풀피), 더 가까운 가방 선택
+                    else if (Mathf.Approximately(currentRatio, maxRatio))
+                    {
+                        if (currentDist < minDist)
+                        {
+                            minDist = currentDist;
+                            target = bagObject.transform;
+                        }
+                    }
+                }
             }
         }
     }

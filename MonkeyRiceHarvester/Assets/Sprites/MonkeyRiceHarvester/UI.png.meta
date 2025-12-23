@@ -949,7 +949,7 @@ TextureImporter:
         width: 29
         height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -971,7 +971,7 @@ TextureImporter:
         width: 27
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -993,7 +993,7 @@ TextureImporter:
         width: 21
         height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1015,7 +1015,7 @@ TextureImporter:
         width: 30
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1024,6 +1024,50 @@ TextureImporter:
       bones: []
       spriteID: 9d563866184e49a4e9b4eb019e9c2296
       internalID: -307299765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpecialIcon_3
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 98
+        width: 25
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6d9bfb12503b57408a922cf5dcc66eb
+      internalID: -825951284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpecialIcon_5
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 99
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80979f5516a89934aaa8cd20d9fc4aa3
+      internalID: -1315885362
       vertices: []
       indices: 
       edges: []
@@ -1074,7 +1118,9 @@ TextureImporter:
       SpecialIcon_0: -483122377
       SpecialIcon_1: -19525287
       SpecialIcon_2: 1800686798
+      SpecialIcon_3: -825951284
       SpecialIcon_4: -307299765
+      SpecialIcon_5: -1315885362
       Title 0: 1315674547
       Title 1: -1799623379
       Title 2: -77559378

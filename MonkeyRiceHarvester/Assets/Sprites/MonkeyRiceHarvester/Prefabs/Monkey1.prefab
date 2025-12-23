@@ -124,6 +124,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f18168ff19866194bad8ea954ae49d7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BonusDamage: 0
+  BonusAttackSpeed: 0
+  BonusCriticalChance: 0
+  BonusCriticalDamage: 0
+  animCon: []
+  weapon: {fileID: 0}
+  spawner: {fileID: 0}
+  hasTarget: 0
+  target: {fileID: 0}
 --- !u!1 &6509505585774463713
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +144,7 @@ GameObject:
   - component: {fileID: 6190974538432353447}
   - component: {fileID: 5316007568074903148}
   - component: {fileID: 4402820282987791376}
-  - component: {fileID: 1086547225392719495}
+  - component: {fileID: 91357746692008684}
   m_Layer: 0
   m_Name: Weapon1
   m_TagString: Untagged
@@ -152,7 +161,7 @@ Transform:
   m_GameObject: {fileID: 6509505585774463713}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.032, y: -0.333, z: 0}
+  m_LocalPosition: {x: 0.081, y: -0.278, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -202,7 +211,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 7466427622202046938, guid: 478cbbb600fa79842a0811a6fc1499f3, type: 3}
+  m_Sprite: {fileID: 7265313343042191254, guid: 478cbbb600fa79842a0811a6fc1499f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -223,7 +232,7 @@ Animator:
   m_GameObject: {fileID: 6509505585774463713}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 4ed2123b5f6b21b40b00e928fd1abc7e, type: 2}
+  m_Controller: {fileID: 22100000, guid: 90670daa14e017a4c823dc6434745258, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -235,7 +244,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1086547225392719495
+--- !u!114 &91357746692008684
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -248,7 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
-  prefabId: 4
+  prefabId: 5
   damage: 10
   count: 1
   speed: 1.5
@@ -256,4 +265,4 @@ MonoBehaviour:
   critDmg: 1.5
   per: 1
   targets: []
-  currentTargetIndex: 0
+  isAttacking: 0

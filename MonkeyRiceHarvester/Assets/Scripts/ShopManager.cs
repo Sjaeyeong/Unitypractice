@@ -41,6 +41,7 @@ public class ShopManager : MonoBehaviour
         public string itemName;
         public SpecialType type;
         public int bananaCost;
+        public int costIncreasePerLv;
         public int maxLevel;
 
         [HideInInspector]
@@ -49,7 +50,11 @@ public class ShopManager : MonoBehaviour
         [Header("# UI References")]
         public Button purchaseButton;
         public Text costText;
-        public GameObject maxLevelObj;
+
+        public int GetCurrentCost()
+        {
+            return bananaCost + (currentLevel * costIncreasePerLv);
+        }
     }
 
     [Header("# Rice Shop Items")]
@@ -143,6 +148,10 @@ public class ShopManager : MonoBehaviour
 
             Debug.Log($"Upgraded {item.statName} to Level {item.currentLv}.");
         }
+        else
+        {
+            Debug.Log("Not enough Rice!");
+        }
     }
 
     void UpdateMonkeyStat(string statName, float newValue)
@@ -208,28 +217,32 @@ public class ShopManager : MonoBehaviour
 
     void UpdateSpecialUI(SpecialItem item)
     {
-        if (item.costText != null)
-            item.costText.text = item.bananaCost.ToString("N0");
+        if (item.purchaseButton == null) return;
 
         bool isMax = item.currentLevel >= item.maxLevel;
 
-        item.purchaseButton.gameObject.SetActive(!isMax);
-        if (item.maxLevelObj != null)
-            item.maxLevelObj.SetActive(isMax);
-
-        if (!isMax && GameManager.instance != null)
+        if (isMax)
         {
-            item.purchaseButton.interactable = GameManager.instance.banana >= item.bananaCost;
+            if (item.costText != null) item.costText.text = "MAX LEVEL";
         }
+        else
+        {
+            if (item.costText != null)
+                item.costText.text = item.GetCurrentCost().ToString("N0");
+    }
+    item.purchaseButton.interactable = true;
     }
 
     public void PurchaseSpecial(SpecialItem item)
     {
         if (GameManager.instance == null) return;
+        if (item.currentLevel >= item.maxLevel) return;
 
-        if (GameManager.instance.banana >= item.bananaCost)
+        int currentCost = item.GetCurrentCost();
+
+        if (GameManager.instance.banana >= currentCost)
         {
-            GameManager.instance.banana -= item.bananaCost;
+            GameManager.instance.banana -= currentCost;
             UpdateCurrencyUI();
 
             item.currentLevel++;
@@ -265,6 +278,8 @@ public class ShopManager : MonoBehaviour
                     {
                         GameManager.instance.isBagTypeUnlocked[unlockIndex] = true;
                         GameManager.instance.SaveBagUnlockState();
+
+                        FindAnyObjectByType<SpawnInputHandler>().Spawn();
                     }
                 }
 

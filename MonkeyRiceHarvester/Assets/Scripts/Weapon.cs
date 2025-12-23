@@ -1,17 +1,17 @@
+using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [Header("# Weapon Info")]
     public int id;
     public int prefabId;
-
     public float damage;
     public int count;
     public float speed;
     public float crit;
     public float critDmg;
-    public int per;
 
     [Header("# Base Value Backup")]
     private float baseDamageValue;
@@ -19,9 +19,7 @@ public class Weapon : MonoBehaviour
     private float baseCritValue;
     private float baseCritDmgValue;
 
-    [Header("Target Logic")]
-    public Transform[] targets;
-
+    private float burstDelay = 0.1f;
     float timer;
     public bool isAttacking = false;
     MonkeyCS monkey;
@@ -29,7 +27,6 @@ public class Weapon : MonoBehaviour
     void Awake()
     {
         monkey = GetComponentInParent<MonkeyCS>();
-        FindSpawnPoint();
 
         baseDamageValue = damage;
         baseSpeedValue = speed;
@@ -41,48 +38,16 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
+        if (!isAttacking) return;
+
         float cooldown = 1f / speed;
+        timer += Time.deltaTime;
 
-        switch (id)
+        if (timer > cooldown)
         {
-            case 0:
-                timer += Time.deltaTime;
-
-                if (timer > cooldown)
-                {
-                    timer = 0f;
-                    Fire();
-                }
-
-                break;
-            case 1:
-                timer += Time.deltaTime;
-
-                if (timer > cooldown)
-                {
-                    timer = 0f;
-                    Fire();
-                }
-
-                break;
-            default:
-                timer += Time.deltaTime;
-
-                if (timer > cooldown)
-                {
-                    timer = 0f;
-                    Fire();
-                }
-
-                break;
+            timer = 0f;
+            StartCoroutine(FireBurstRoutine()); // 연사 코루틴
         }
-    }
-
-    public void LevelUP(float damage)
-    {
-        this.damage = damage;
-
-        
     }
 
     public void UpgradeStats()
@@ -96,56 +61,66 @@ public class Weapon : MonoBehaviour
         critDmg = baseCritDmgValue + monkey.GetBaseCriticalDamageBonus();
     }
 
-    public void Init()
-    {
-        switch (id)
-        {
-            case 0:
-                speed = 1.2f;
-                break;
-            case 1:
-                speed = 1.5f;
-                break;
-            default:
-                speed = 0.5f;
-                break;
-        }
-    }
-
     public void SetAttackState(bool attack)
     {
         isAttacking = attack;
     }
 
-    void FindSpawnPoint()
+    IEnumerator FireBurstRoutine()
     {
-        targets = GetComponentsInChildren<Transform>();
+        if (monkey.target == null) yield break;
+
+        int totalCount = count + GameManager.instance.bonusAmmo;
+
+        for (int i = 0; i < totalCount; i++)
+        {
+            if (id != 1 && monkey.target == null) yield break;
+
+            GameObject bulletObj = GameManager.instance.pool.Get(prefabId);
+            bulletObj.transform.position = transform.position;
+            Bullet bulletScript = bulletObj.GetComponent<Bullet>();
+
+            // 크리티컬 계산 (UnityEngine 명시)
+            float finalDamage = damage;
+            if (UnityEngine.Random.value <= crit) finalDamage *= critDmg;
+
+            Vector2 launchVelocity;
+            float gravity;
+            bool isPen;
+
+            // 2번째 원숭이 (삽) 로직 간소화
+            if (id == 1) 
+            {
+                launchVelocity = Vector2.right * 15f; // 단순히 오른쪽 방향으로 고정 발사
+                gravity = 0f;                        // 중력 없음 (일직선)
+                isPen = true;                        // 관통 활성화
+            }
+            else // 1번(삼지창), 3번(바나나) 원숭이 로직
+            {
+                gravity = (id == 0) ? 1.2f : 2.2f;
+                launchVelocity = CalculatePreciseVelocity(monkey.target.position, gravity);
+                isPen = false;
+            }
+            
+            bulletScript.Init(finalDamage, isPen, launchVelocity, gravity);
+
+            yield return new WaitForSeconds(burstDelay); // 꼬리 물기 연사 효과
+        }
     }
 
-    void Fire()
+    Vector2 CalculatePreciseVelocity(Vector3 target, float gravityScale)
     {
-        if (!isAttacking)
-            return;
-        if(id != 2)
-        {
-            Vector3 dir = transform.right;
+        Vector2 diff = target - transform.position;
+        float g = Mathf.Abs(Physics2D.gravity.y * gravityScale);
 
-            Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
-            bullet.position = transform.position;
-            bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
-            bullet.GetComponent<Bullet>().Init(damage, count, dir);
-        }
-        else
-        {
-            Vector3 targetPos = monkey.target.position;
-            Vector3 dir = targetPos - transform.position;
-            dir = dir.normalized;
+        if (gravityScale <= 0) return diff.normalized * 15f; // 직선 삽
 
-            Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
-            bullet.position = transform.position;
-            bullet.rotation = Quaternion.FromToRotation(Vector3.up, dir);
-            bullet.GetComponent<Bullet>().Init(damage, count, dir);
-        }
+        // 수평 거리에 따른 체공 시간 계산
+        float time = Mathf.Sqrt(Mathf.Abs(diff.x) / g) * 1.5f; 
+        float vx = diff.x / time;
+        float vy = (diff.y / time) + (0.5f * g * time);
+
+        return new Vector2(vx, vy);
     }
 
 }

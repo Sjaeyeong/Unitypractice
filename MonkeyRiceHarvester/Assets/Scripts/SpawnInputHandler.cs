@@ -10,8 +10,8 @@ public class SpawnInputHandler : MonoBehaviour
     [HideInInspector] public GameObject[] spawnedBags = new GameObject[3];
     private const int TOTAL_BAGTYPES = 3;
 
-    float autoSpawnTimer = 0f;
-    float autoSpawnDelay = 2.0f;
+    // float autoSpawnTimer = 0f;
+    // float autoSpawnDelay = 0.5f;
 
     void Awake()
     {
@@ -31,16 +31,16 @@ public class SpawnInputHandler : MonoBehaviour
             Spawn();
         }
 
-        if (GameManager.instance != null && GameManager.instance.isAutoSpawn) {
-            autoSpawnTimer += Time.deltaTime;
-            if (autoSpawnTimer >= autoSpawnDelay) {
-                autoSpawnTimer = 0f;
-                Spawn();
-            }
-        }
+        // if (GameManager.instance != null && GameManager.instance.isAutoSpawn) {
+        //     autoSpawnTimer += Time.deltaTime;
+        //     if (autoSpawnTimer >= autoSpawnDelay) {
+        //         autoSpawnTimer = 0f;
+        //         Spawn();
+        //     }
+        // }
     }
 
-    void Spawn()
+    public void Spawn()
     {
         if (GameManager.instance == null)
             return;

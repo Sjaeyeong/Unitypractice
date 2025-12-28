@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
 
     [Header("# Base Value Backup")]
     private float baseDamageValue;
-    private float baseSpeedValue;
+    public float baseSpeedValue;
     private float baseCritValue;
     private float baseCritDmgValue;
 

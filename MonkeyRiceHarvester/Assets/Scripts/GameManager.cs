@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     public int bonusAmmo = 0; // max is 3
     public int bonusMonkey = 0; // max is 2
 
+    [Header("# Extra Monkey Prefabs/Objects")]
+    public GameObject[] extraMonkeys;
+
     [Header("# RiceBag Info")]
     public RiceBag[] activeRiceBag = new RiceBag[3];
     
@@ -43,7 +46,7 @@ public class GameManager : MonoBehaviour
     public GameObject dataWindow;
 
     public PoolManager pool;
-    public MonkeyCS[] monkey;
+    public List<MonkeyCS> activeMonkeys = new List<MonkeyCS>();
     
 
     void Awake()
@@ -53,6 +56,9 @@ public class GameManager : MonoBehaviour
         level = 1;
 
         UpdateHUDHealthBars();
+
+        MonkeyCS[] startingMonkeys = FindObjectsByType<MonkeyCS>(FindObjectsSortMode.None);
+        activeMonkeys.AddRange(startingMonkeys);
 
     }
 
@@ -65,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     public void GetExp(float amount)
     {
-        exp += 30;
+        exp += amount;
 
         if (exp >= nextExp)
         {

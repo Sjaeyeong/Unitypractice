@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class MonkeyCS : MonoBehaviour
@@ -16,18 +17,20 @@ public class MonkeyCS : MonoBehaviour
     public bool hasTarget = false;
     [HideInInspector] public Transform target;
 
-    Animator anim;
+    Animator monkeyanim;
+    Animator weaponanim;
 
     void Awake()
     {
-        anim = GetComponent<Animator>();
+        monkeyanim = GetComponent<Animator>();
         weapon = GetComponentInChildren<Weapon>();
+        if (weapon != null)
+            weaponanim = weapon.GetComponent<Animator>();
+
         spawner = FindAnyObjectByType<SpawnInputHandler>();
 
         if (weapon != null)
-        {
             weapon.UpgradeStats();
-        }
     }
 
     void Update()
@@ -36,12 +39,25 @@ public class MonkeyCS : MonoBehaviour
 
         if (target != null)
         {
-            anim.SetBool("Attack", true);
+            if (weaponanim != null)
+            {
+                weaponanim.SetBool("Attack", true);
+
+                float startAnimSpeed = 0.5f;
+                float maxAnimSpeed = 3.0f;
+
+                float ratio = weapon.speed / weapon.baseSpeedValue;
+                float currentSpeed = Math.Min(ratio * startAnimSpeed, maxAnimSpeed);
+                weaponanim.SetFloat("AttackSpeed", currentSpeed);
+            }
             weapon.SetAttackState(true);
         }
         else
         {
-            anim.SetBool("Attack", false);
+            if (weaponanim != null)
+            {
+                weaponanim.SetBool("Attack", false);
+            }
             weapon.SetAttackState(false);
         }
     }

@@ -67,13 +67,13 @@ public class ShopManager : MonoBehaviour
     public SpecialItem[] specialItems;
 
     [Header("# Global References")]
-    public MonkeyCS monkeyData;
+    // public MonkeyCS monkeyData;
     public Text riceText;
     public Text bananaText;
 
     void Awake()
     {
-        monkeyData = FindAnyObjectByType<MonkeyCS>();
+        // monkeyData = FindAnyObjectByType<MonkeyCS>();
     }
 
     void Start()
@@ -111,7 +111,11 @@ public class ShopManager : MonoBehaviour
         item.upgradeButton.onClick.AddListener(() => BuyUpgrade(item));
 
         UpdateUpgradeUI(item);
-        UpdateMonkeyStat(item.statName, item.totalStat);
+        // UpdateMonkeyStat(item.statName, item.totalStat);
+        foreach (MonkeyCS m in GameManager.instance.activeMonkeys)
+        {
+            UpdateMonkeyStat(m, item);
+        }
     }
 
     void UpdateUpgradeUI(UpgradeItem item)
@@ -144,7 +148,11 @@ public class ShopManager : MonoBehaviour
             item.currentLv++;
 
             UpdateUpgradeUI(item);
-            UpdateMonkeyStat(item.statName, item.totalStat);
+            // UpdateMonkeyStat(item.statName, item.totalStat);
+            foreach (MonkeyCS m in GameManager.instance.activeMonkeys)
+            {
+                UpdateMonkeyStat(m, item);
+            }
 
             Debug.Log($"Upgraded {item.statName} to Level {item.currentLv}.");
         }
@@ -154,21 +162,42 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    void UpdateMonkeyStat(string statName, float newValue)
+    // void UpdateMonkeyStat(string statName, float newValue)
+    // {
+    //     switch (statName)
+    //     {
+    //         case "Damage":
+    //             monkeyData.SetDamage(newValue);
+    //             break;
+    //         case "AttackSpeed":
+    //             monkeyData.SetAttackSpeed(newValue);
+    //             break;
+    //         case "CriticalChance":
+    //             monkeyData.SetCriticalChance(newValue);
+    //             break;
+    //         case "CriticalDamage":
+    //             monkeyData.SetCriticalDamage(newValue);
+    //             break;
+    //     }
+    // }
+
+    void UpdateMonkeyStat(MonkeyCS m, UpgradeItem item)
     {
-        switch (statName)
+        if (m == null) return;
+
+        switch (item.statName)
         {
             case "Damage":
-                monkeyData.SetDamage(newValue);
+                m.SetDamage(item.totalStat);
                 break;
             case "AttackSpeed":
-                monkeyData.SetAttackSpeed(newValue);
+                m.SetAttackSpeed(item.totalStat);
                 break;
             case "CriticalChance":
-                monkeyData.SetCriticalChance(newValue);
+                m.SetCriticalChance(item.totalStat);
                 break;
             case "CriticalDamage":
-                monkeyData.SetCriticalDamage(newValue);
+                m.SetCriticalDamage(item.totalStat);
                 break;
         }
     }
@@ -300,6 +329,24 @@ public class ShopManager : MonoBehaviour
 
             case SpecialType.ExtraMonkey:
                 GameManager.instance.bonusMonkey++;
+                int monkeyIdx = GameManager.instance.bonusMonkey - 1;
+
+                if (monkeyIdx < GameManager.instance.extraMonkeys.Length)
+                {
+                    GameObject newMonkeyObj = GameManager.instance.extraMonkeys[monkeyIdx];
+                    newMonkeyObj.SetActive(true);
+
+                    MonkeyCS newMonkeyScript = newMonkeyObj.GetComponent<MonkeyCS>();
+                    if (newMonkeyScript != null)
+                    {
+                        GameManager.instance.activeMonkeys.Add(newMonkeyScript);
+
+                        UpdateMonkeyStat(newMonkeyScript, monkeyDamage);
+                        UpdateMonkeyStat(newMonkeyScript, attackSpeed);
+                        UpdateMonkeyStat(newMonkeyScript, criticalChance);
+                        UpdateMonkeyStat(newMonkeyScript, criticalDamage);
+                    }
+                }
                 break;
         }
     }

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public float nextExp;
     public int rice;
     public int banana;
+    public float totalDamage;
 
     [Header("# Banana Shop Info")]
     public bool isAutoSpawn = false;
@@ -25,6 +26,8 @@ public class GameManager : MonoBehaviour
     public bool bagUpgrade = false;
     public int bonusAmmo = 0; // max is 3
     public int bonusMonkey = 0; // max is 2
+    public float farmerRate;
+    float riceBuffer;
 
     [Header("# Extra Monkey Prefabs/Objects")]
     public GameObject[] extraMonkeys;
@@ -66,6 +69,17 @@ public class GameManager : MonoBehaviour
     {
         gameTime += Time.deltaTime;
         nextExp = CalculateNextExp(level);
+
+        if (farmerRate > 0)
+        {
+            riceBuffer += farmerRate * Time.deltaTime;
+            if (riceBuffer >= 1.0f)
+            {
+                int gain = Mathf.FloorToInt(riceBuffer);
+                rice += gain;
+                riceBuffer -= gain;
+            }
+        }
 
     }
 

@@ -94,7 +94,11 @@ public class RiceBag : MonoBehaviour
         if (!collision.CompareTag("Bullet") || !isLive) 
             return;
 
-        hp -= collision.GetComponent<Bullet>().damage;
+        float damageTaken = collision.GetComponent<Bullet>().damage;
+        hp -= damageTaken;
+        
+        if (GameManager.instance != null)
+            GameManager.instance.totalDamage += damageTaken;
 
         if (hp > 0)
         {

@@ -5,7 +5,13 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
-    public enum InfoType{ Exp, Level, Kill, Time, Rice, Banana, redHP, blueHP, greenHP, redBagLevel, blueBagLevel, greenBagLevel }
+    public enum InfoType{
+        Exp, Level, Kill, Time, Rice, Banana,
+        redHP, blueHP, greenHP,
+        redBagLevel, blueBagLevel, greenBagLevel,
+        TotalDamage, MonkeyAtk, MonkeySpeed, MonkeyCrit, MonkeyCritDmg, MonkeyCount,
+        FarmerRate
+    }
     public InfoType type;
 
     Text myText;
@@ -70,6 +76,24 @@ public class HUD : MonoBehaviour
             case InfoType.greenBagLevel:
                 UpdateBagLevel(2, "초록");
                 break;
+            case InfoType.TotalDamage:
+                myText.text = string.Format("ToTal Damage\n: {0:N0}", GameManager.instance.totalDamage);
+                break;
+            case InfoType.MonkeyAtk:
+                UpdateMonkeyStat(0);
+                break;
+            case InfoType.MonkeySpeed:
+                UpdateMonkeyStat(1);
+                break;
+            case InfoType.MonkeyCrit:
+                UpdateMonkeyStat(2);
+                break;
+            case InfoType.MonkeyCritDmg:
+                UpdateMonkeyStat(3);
+                break;
+            case InfoType.MonkeyCount:
+                UpdateMonkeyStat(4);
+                break;
         }
     }
 
@@ -95,5 +119,20 @@ public class HUD : MonoBehaviour
         }
     }
 
+    void UpdateMonkeyStat(int statIndex)
+    {
+        MonkeyCS refMonkey = GameManager.instance.activeMonkeys[0];
+
+        switch (statIndex)
+        {
+            case 0: myText.text = string.Format("Bonust Atk\n: +{0:F1}", refMonkey.GetBaseDamageBonus()); break;
+            case 1: myText.text = string.Format("Bonust Speed\n: +{0:F1}", refMonkey.GetBaseAttackSpeedBonus()); break;
+            case 2: myText.text = string.Format("Bonust Crit\n: +{0:P0}", refMonkey.GetBaseCriticalChanceBonus()); break;
+            case 3: myText.text = string.Format("Bonust CritDmg\n: +{0:P0}", refMonkey.GetBaseCriticalDamageBonus()); break;
+            case 4:
+                myText.text = string.Format("Bonus Ammo : + {0}", GameManager.instance.bonusAmmo);
+                break;
+        }
+    }
 
 }

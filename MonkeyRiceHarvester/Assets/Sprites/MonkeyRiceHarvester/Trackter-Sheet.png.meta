@@ -1,0 +1,383 @@
+fileFormatVersion: 2
+guid: 69c2971452af6494299a941138401bcd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7970040160335791668
+    second: Trackter-Sheet_0
+  - first:
+      213: -1764181540895163328
+    second: Trackter-Sheet_1
+  - first:
+      213: 7647271910415942627
+    second: Trackter-Sheet_2
+  - first:
+      213: 5003091388732239750
+    second: Trackter-Sheet_3
+  - first:
+      213: -8386290621689428096
+    second: Trackter-Sheet_4
+  - first:
+      213: -7847976470362719307
+    second: Trackter-Sheet_5
+  - first:
+      213: 8604740881058549012
+    second: Trackter-Sheet_6
+  - first:
+      213: -3795766858099790127
+    second: Trackter-Sheet_7
+  - first:
+      213: -7361807373841664758
+    second: Trackter-Sheet_8
+  - first:
+      213: 614554132592033430
+    second: Trackter-Sheet_9
+  - first:
+      213: 3193953544127193824
+    second: Trackter-Sheet_10
+  - first:
+      213: -8298308005483570886
+    second: Trackter-Sheet_11
+  - first:
+      213: 5611080779143606327
+    second: Trackter-Sheet_12
+  - first:
+      213: 2284421481265008648
+    second: Trackter-Sheet_13
+  - first:
+      213: 6725415066435542874
+    second: Trackter-Sheet_14
+  - first:
+      213: 4413520340027510547
+    second: Trackter-Sheet_15
+  - first:
+      213: 7475320097441353106
+    second: Trackter-Sheet_16
+  - first:
+      213: -5130880421838601478
+    second: Trackter-Sheet_17
+  - first:
+      213: -7924209377595162986
+    second: Trackter-Sheet_18
+  - first:
+      213: 6879258951032333076
+    second: Trackter-Sheet_19
+  - first:
+      213: -3366947295173056761
+    second: Trackter-Sheet_20
+  - first:
+      213: 4736265251989215612
+    second: Trackter-Sheet_21
+  - first:
+      213: 114822723985891592
+    second: Trackter-Sheet_22
+  - first:
+      213: 7569183565471325386
+    second: Trackter-Sheet_23
+  - first:
+      213: 6253402884114170584
+    second: Trackter-Sheet_24
+  - first:
+      213: 648516476093912239
+    second: Trackter-Sheet_25
+  - first:
+      213: -5772363891468188799
+    second: Trackter-Sheet_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 18
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Trackter_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 7
+        width: 108
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c79d7d227289ab140800000000000000
+      internalID: 4736265251989215612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trackter-Sheet_22
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 7
+        width: 108
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 801625bb8aee79100800000000000000
+      internalID: 114822723985891592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trackter-Sheet_23
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 7
+        width: 108
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acc94ab79542b0960800000000000000
+      internalID: 7569183565471325386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trackter-Sheet_24
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 7
+        width: 108
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d247098acc88c650800000000000000
+      internalID: 6253402884114170584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trackter-Sheet_25
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 7
+        width: 108
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa4d09c8c4efff800800000000000000
+      internalID: 648516476093912239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trackter-Sheet_26
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 7
+        width: 108
+        height: 99
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1834fbebf9174efa0800000000000000
+      internalID: -5772363891468188799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: cc132c17adfda7841b130cb217da7853
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Trackter-Sheet_0: 7970040160335791668
+      Trackter-Sheet_1: -1764181540895163328
+      Trackter-Sheet_10: 3193953544127193824
+      Trackter-Sheet_11: -8298308005483570886
+      Trackter-Sheet_12: 5611080779143606327
+      Trackter-Sheet_13: 2284421481265008648
+      Trackter-Sheet_14: 6725415066435542874
+      Trackter-Sheet_15: 4413520340027510547
+      Trackter-Sheet_16: 7475320097441353106
+      Trackter-Sheet_17: -5130880421838601478
+      Trackter-Sheet_18: -7924209377595162986
+      Trackter-Sheet_19: 6879258951032333076
+      Trackter-Sheet_2: 7647271910415942627
+      Trackter-Sheet_20: -3366947295173056761
+      Trackter-Sheet_22: 114822723985891592
+      Trackter-Sheet_23: 7569183565471325386
+      Trackter-Sheet_24: 6253402884114170584
+      Trackter-Sheet_25: 648516476093912239
+      Trackter-Sheet_26: -5772363891468188799
+      Trackter-Sheet_3: 5003091388732239750
+      Trackter-Sheet_4: -8386290621689428096
+      Trackter-Sheet_5: -7847976470362719307
+      Trackter-Sheet_6: 8604740881058549012
+      Trackter-Sheet_7: -3795766858099790127
+      Trackter-Sheet_8: -7361807373841664758
+      Trackter-Sheet_9: 614554132592033430
+      Trackter_0: 4736265251989215612
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

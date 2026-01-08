@@ -162,25 +162,6 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    // void UpdateMonkeyStat(string statName, float newValue)
-    // {
-    //     switch (statName)
-    //     {
-    //         case "Damage":
-    //             monkeyData.SetDamage(newValue);
-    //             break;
-    //         case "AttackSpeed":
-    //             monkeyData.SetAttackSpeed(newValue);
-    //             break;
-    //         case "CriticalChance":
-    //             monkeyData.SetCriticalChance(newValue);
-    //             break;
-    //         case "CriticalDamage":
-    //             monkeyData.SetCriticalDamage(newValue);
-    //             break;
-    //     }
-    // }
-
     void UpdateMonkeyStat(MonkeyCS m, UpgradeItem item)
     {
         if (m == null) return;
@@ -317,6 +298,17 @@ public class ShopManager : MonoBehaviour
 
             case SpecialType.TowerMonkey:
                 GameManager.instance.towerMonkeyCount++;
+                
+                // 1, 2번째 구매까지는 생산량도 늘리고 외형도 소환
+                if (GameManager.instance.towerMonkeyCount <= GameManager.instance.farmerMonkeys.Length)
+                {
+                    GameManager.instance.farmerRate += 5.0f;
+                    GameManager.instance.UpdateFarmerState();
+                }
+                else 
+                {
+                    GameManager.instance.farmerRate += 10.0f; // 업그레이드 효율은 더 높게 설정 가능
+                }
                 break;
 
             case SpecialType.UpgradeBag:

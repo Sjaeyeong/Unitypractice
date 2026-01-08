@@ -66,7 +66,6 @@ public class HUD : MonoBehaviour
             case InfoType.greenHP:
                 UpdateBagHP(2);
                 break;
-
             case InfoType.redBagLevel:
                 UpdateBagLevel(0, "빨강");
                 break;
@@ -93,6 +92,9 @@ public class HUD : MonoBehaviour
                 break;
             case InfoType.MonkeyCount:
                 UpdateMonkeyStat(4);
+                break;
+            case InfoType.FarmerRate:
+                myText.text = string.Format("Rice / Sec\n{0:F1}", GameManager.instance.farmerRate);
                 break;
         }
     }

@@ -26,11 +26,14 @@ public class GameManager : MonoBehaviour
     public bool bagUpgrade = false;
     public int bonusAmmo = 0; // max is 3
     public int bonusMonkey = 0; // max is 2
-    public float farmerRate;
-    float riceBuffer;
 
     [Header("# Extra Monkey Prefabs/Objects")]
     public GameObject[] extraMonkeys;
+
+    [Header("# Farmer Setting")]
+    public GameObject[] farmerMonkeys;
+    public float farmerRate;
+    float riceBuffer;
 
     [Header("# RiceBag Info")]
     public RiceBag[] activeRiceBag = new RiceBag[3];
@@ -59,6 +62,7 @@ public class GameManager : MonoBehaviour
         level = 1;
 
         UpdateHUDHealthBars();
+        UpdateFarmerState();
 
         MonkeyCS[] startingMonkeys = FindObjectsByType<MonkeyCS>(FindObjectsSortMode.None);
         activeMonkeys.AddRange(startingMonkeys);
@@ -106,9 +110,12 @@ public class GameManager : MonoBehaviour
         return Mathf.Floor(requiredExp);
     }
 
-    public void GameStart(int id)
+    public void UpdateFarmerState()
     {
-        
+        for (int i = 0; i < farmerMonkeys.Length; i++)
+        {
+            farmerMonkeys[i].SetActive(i < towerMonkeyCount);
+        }
     }
 
     public void toggleWindow(GameObject targetWindow)

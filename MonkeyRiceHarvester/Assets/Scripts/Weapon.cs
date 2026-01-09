@@ -81,8 +81,8 @@ public class Weapon : MonoBehaviour
             Bullet bulletScript = bulletObj.GetComponent<Bullet>();
 
             // 크리티컬 계산 (UnityEngine 명시)
-            float finalDamage = damage;
-            if (UnityEngine.Random.value <= crit) finalDamage *= critDmg;
+            bool isCrit = UnityEngine.Random.value <= crit;
+            float finalDamage = isCrit ? damage * critDmg : damage;
 
             Vector2 launchVelocity;
             float gravity;
@@ -102,7 +102,7 @@ public class Weapon : MonoBehaviour
                 isPen = false;
             }
             
-            bulletScript.Init(finalDamage, isPen, launchVelocity, gravity);
+            bulletScript.Init(finalDamage, isPen, launchVelocity, gravity, isCrit);
 
             yield return new WaitForSeconds(burstDelay); // 꼬리 물기 연사 효과
         }

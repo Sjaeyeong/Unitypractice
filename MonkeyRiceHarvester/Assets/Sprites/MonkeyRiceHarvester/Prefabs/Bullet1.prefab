@@ -168,3 +168,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   isPenetrating: 0
+  critSprite: {fileID: 936662532, guid: a6173754a87c8e64e9bb63f9e884a223, type: 3}
+  defaultSprite: {fileID: -4302738574504368419, guid: a6173754a87c8e64e9bb63f9e884a223, type: 3}

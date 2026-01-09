@@ -75,19 +75,19 @@ public class RiceBag : MonoBehaviour
             anim.runtimeAnimatorController = animCon[0];
             maxHp = currentBaseHp;
             banana = 0;
-            
+        }
+
+        if (GameManager.instance.bagUpgrade)
+        {
+            maxHp *= 2.0f;
+            rice *= 2;
+            exp *= 1.5f;
+            banana *= 2;
+            transform.localScale = Vector3.one * 1.3f;
         }
 
         hp = maxHp;
     }
-
-    // public void Init(SpawnData data)
-    // {
-    //     baseExp = data.exp;
-    //     baseHP = data.hp;
-    //     baseRice = data.rice;
-        
-    // }
 
     void OnTriggerEnter2D(Collider2D collision)
     {

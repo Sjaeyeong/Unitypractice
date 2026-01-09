@@ -5,21 +5,39 @@ public class Bullet : MonoBehaviour
 {
     public float damage;
     public bool isPenetrating;
+    public bool isCrit;
+
+    [Header("# Visulas")]
+    public Sprite critSprite;
+    public Sprite defaultSprite;
+    SpriteRenderer spriter;
 
     Rigidbody2D rigid;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        spriter = GetComponent<SpriteRenderer>();
+        defaultSprite = spriter.sprite;
     }
 
-    public void Init(float damage, bool isPenetrating, Vector2 velocity, float gravity)
+    public void Init(float damage, bool isPenetrating, Vector2 velocity, float gravity, bool isCrit)
     {
         this.damage = damage;
         this.isPenetrating = isPenetrating;
+        this.isCrit = isCrit;
         
         rigid.gravityScale = gravity;
         rigid.linearVelocity = velocity;
+
+        if (isCrit && critSprite != null)
+        {
+            spriter.sprite = critSprite;
+        }
+        else
+        {
+            spriter.sprite = defaultSprite;
+        }
     }
 
     void Update()

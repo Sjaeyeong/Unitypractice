@@ -1059,7 +1059,7 @@ TextureImporter:
         width: 16
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1068,6 +1068,28 @@ TextureImporter:
       bones: []
       spriteID: 80979f5516a89934aaa8cd20d9fc4aa3
       internalID: -1315885362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Button
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 82
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99cea2961b801524d8b8fd8ec9a621ec
+      internalID: -2009002039
       vertices: []
       indices: 
       edges: []
@@ -1115,6 +1137,7 @@ TextureImporter:
       Select 7: -966295699
       Select 8: 927338625
       Select 9: -1002307068
+      Setting_Button: -2009002039
       SpecialIcon_0: -483122377
       SpecialIcon_1: -19525287
       SpecialIcon_2: 1800686798

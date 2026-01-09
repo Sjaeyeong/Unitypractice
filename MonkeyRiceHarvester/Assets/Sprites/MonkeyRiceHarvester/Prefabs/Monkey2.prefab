@@ -128,7 +128,7 @@ MonoBehaviour:
   damage: 30
   count: 1
   speed: 0.5
-  crit: 15
+  crit: 0.15
   critDmg: 1
   baseSpeedValue: 0
   isAttacking: 0

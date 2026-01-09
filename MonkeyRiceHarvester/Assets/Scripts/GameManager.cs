@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject shopWindow;
     public GameObject dataWindow;
+    public GameObject settingWindow;
 
     public PoolManager pool;
     public List<MonkeyCS> activeMonkeys = new List<MonkeyCS>();

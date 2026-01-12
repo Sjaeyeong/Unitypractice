@@ -54,21 +54,25 @@ public class GameManager : MonoBehaviour
 
     public PoolManager pool;
     public List<MonkeyCS> activeMonkeys = new List<MonkeyCS>();
-    
 
     void Awake()
     {
         instance = this;
         Application.targetFrameRate = 60;
-        level = 1;
-
-        UpdateHUDHealthBars();
-        UpdateFarmerState();
+        
+        activeMonkeys.Clear();
 
         MonkeyCS[] startingMonkeys = FindObjectsByType<MonkeyCS>(FindObjectsSortMode.None);
         activeMonkeys.AddRange(startingMonkeys);
-
     }
+
+    void Start()
+        {
+            LoadGame();
+
+            UpdateHUDHealthBars();
+            UpdateFarmerState();
+        }
 
     void Update()
     {
@@ -126,6 +130,102 @@ public class GameManager : MonoBehaviour
         
         bool isActive = targetWindow.activeSelf;
         targetWindow.SetActive(!isActive);
+    }
+
+    public void toggleSettings()
+    {
+        if (!settingWindow)
+            return;
+
+        bool isSettingActive = !settingWindow.activeSelf;
+        settingWindow.SetActive(isSettingActive);
+
+        Time.timeScale = isSettingActive ? 0f : 1f;
+    }
+
+    public void SaveGame()
+    {
+        // 1. 기본 재화 및 플레이어 성장도
+        PlayerPrefs.SetInt("Rice", rice);
+        PlayerPrefs.SetInt("Banana", banana);
+        PlayerPrefs.SetInt("PlayerLevel", level); // 플레이어의 레벨
+        PlayerPrefs.SetFloat("PlayerExp", exp);
+        PlayerPrefs.SetFloat("gameTime", gameTime);
+        PlayerPrefs.SetFloat("Damage", totalDamage);
+
+        // 2. Rice Shop (기초 스탯 레벨) - ShopManager의 UpgradeItem 단계
+        ShopManager shop = FindAnyObjectByType<ShopManager>();
+        if (shop != null)
+        {
+            PlayerPrefs.SetInt("Lv_Damage", shop.monkeyDamage.currentLv);
+            PlayerPrefs.SetInt("Lv_AtkSpeed", shop.attackSpeed.currentLv);
+            PlayerPrefs.SetInt("Lv_CritChance", shop.criticalChance.currentLv);
+            PlayerPrefs.SetInt("Lv_CritDamage", shop.criticalDamage.currentLv);
+        }
+
+        // 3. Banana Shop (특수 업그레이드 상태)
+        PlayerPrefs.SetInt("IsAutoSpawn", isAutoSpawn ? 1 : 0);
+        PlayerPrefs.SetInt("MaxBagCount", maxBagcount);
+        PlayerPrefs.SetInt("TowerMonkeyCount", towerMonkeyCount);
+        PlayerPrefs.SetInt("BagUpgrade", bagUpgrade ? 1 : 0);
+        PlayerPrefs.SetInt("BonusAmmo", bonusAmmo);
+        PlayerPrefs.SetInt("BonusMonkey", bonusMonkey);
+
+        // 4. 가방 해금 상태 (배열)
+        for (int i = 0; i < isBagTypeUnlocked.Length; i++)
+        {
+            PlayerPrefs.SetInt("BagUnlocked_" + i, isBagTypeUnlocked[i] ? 1 : 0);
+        }
+
+        PlayerPrefs.Save();
+        Debug.Log("Game Saved!");
+    }
+
+    public void LoadGame()
+    {
+        if (!PlayerPrefs.HasKey("Rice")) return;
+
+        // 1. 기본 재화 복구
+        rice = PlayerPrefs.GetInt("Rice");
+        banana = PlayerPrefs.GetInt("Banana");
+        level = PlayerPrefs.GetInt("PlayerLevel");
+        exp = PlayerPrefs.GetFloat("PlayerExp");
+        gameTime = PlayerPrefs.GetFloat("gameTime");
+        totalDamage = PlayerPrefs.GetFloat("Damage");
+
+        // 2. Banana Shop 상태 복구
+        isAutoSpawn = PlayerPrefs.GetInt("IsAutoSpawn") == 1;
+        maxBagcount = PlayerPrefs.GetInt("MaxBagCount");
+        towerMonkeyCount = PlayerPrefs.GetInt("TowerMonkeyCount");
+        bagUpgrade = PlayerPrefs.GetInt("BagUpgrade") == 1;
+        bonusAmmo = PlayerPrefs.GetInt("BonusAmmo");
+        bonusMonkey = PlayerPrefs.GetInt("BonusMonkey");
+
+        // 3. 가방 해금 상태 복구
+        for (int i = 0; i < isBagTypeUnlocked.Length; i++)
+        {
+            isBagTypeUnlocked[i] = PlayerPrefs.GetInt("BagUnlocked_" + i) == 1;
+        }
+
+        // 4. 상점 UI 및 실제 스탯 동기화
+        ShopManager shop = FindAnyObjectByType<ShopManager>();
+        if (shop != null)
+        {
+            // Rice Shop 레벨 적용
+            shop.monkeyDamage.currentLv = PlayerPrefs.GetInt("Lv_Damage", 1);
+            shop.attackSpeed.currentLv = PlayerPrefs.GetInt("Lv_AtkSpeed", 1);
+            shop.criticalChance.currentLv = PlayerPrefs.GetInt("Lv_CritChance", 1);
+            shop.criticalDamage.currentLv = PlayerPrefs.GetInt("Lv_CritDamage", 1);
+
+            // 상점 UI 갱신 (Initialize를 다시 호출하여 데이터 동기화)
+            shop.UpdateCurrencyUI();
+        }
+    }
+
+    public void GoToMainMenu()
+    {
+        Time.timeScale = 1f; // [중요] 씬 이동 전 시간 속도 복구
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu"); // 실제 메인메뉴 씬 이름 입력
     }
 
     public void SaveBagUnlockState()

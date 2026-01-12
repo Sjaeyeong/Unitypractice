@@ -76,7 +76,7 @@ public class ShopManager : MonoBehaviour
         // monkeyData = FindAnyObjectByType<MonkeyCS>();
     }
 
-    void Start()
+    public void Start()
     {
         InitializeUpgrade(monkeyDamage, "Damage");
         InitializeUpgrade(attackSpeed, "AttackSpeed");

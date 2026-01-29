@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 9156226536011387899}
   - component: {fileID: 4098497600825325698}
   - component: {fileID: 4434168256087894247}
-  m_Layer: 0
-  m_Name: Scouter_0
+  m_Layer: 6
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,6 +104,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 0
   speed: 0
+  exp: 0
+  maxHp: 0
+  damage: 0
+  enemySprites:
+  - {fileID: -784902290976391033, guid: 406d247b30db72a419e9caf9f209134b, type: 3}
+  - {fileID: -5160660819957252609, guid: 20640a04eb9c87543a43618871ec7fc1, type: 3}
+  - {fileID: 4805327899102876683, guid: f1d4971027548ee45acf93194fd0cbe7, type: 3}
+  - {fileID: 4018523513245488869, guid: e7357be53eca3bf4ca0d23311b425639, type: 3}
+  - {fileID: 4771406743113328782, guid: db6c09b2ce97ec04198218644064a957, type: 3}
 --- !u!50 &4098497600825325698
 Rigidbody2D:
   serializedVersion: 5

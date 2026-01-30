@@ -58,22 +58,30 @@ public class Weapon : MonoBehaviour
         Vector3 targetPos = scanner.nearestTarget.position;
         Vector2 dir = (targetPos - transform.position).normalized;
 
-        int per = 0;
-        switch (id)
-        {
-            case 2: // [■■■■■] 라인 피어서
-            case 6: // ☽ 문메랑
-                per = 99; break;
-            case 4: // ◑ 헤비 서클
-                per = 2; break;
+        GameObject bulletObj = GameManager.instance.pool.Get(prefabId);
+        if (bulletObj == null) {
+            Debug.LogError($"Pool에서 {prefabId}번 프리팹을 가져오지 못했습니다.");
+            return;
         }
 
-        Transform bullet = GameManager.instance.pool.Get(prefabId).transform;
-        bullet.position = transform.position;
-
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
-        bullet.rotation = Quaternion.Euler(0, 0, angle);
+        Transform bulletTransform = bulletObj.transform;
+        bulletTransform.position = transform.position;
         
-        bullet.GetComponent<Bullet>().Init(damage, per, dir, speed);
+        // 방향 회전
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+        bulletTransform.rotation = Quaternion.Euler(0, 0, angle);
+
+        // 3. Bullet 스크립트 참조 확인 (가장 유력한 에러 지점)
+        Bullet bullet = bulletObj.GetComponent<Bullet>();
+        if (bullet == null) {
+            Debug.LogError($"{bulletObj.name} 프리팹에 Bullet.cs 스크립트가 없습니다!");
+            return;
+        }
+
+        // 무기별 관통 설정
+        int per = (id == 2 || id == 6) ? 99 : (id == 4 ? 2 : 0);
+
+        // 스탯 주입
+        bullet.Init(damage, per, dir, speed);
     }
 }
